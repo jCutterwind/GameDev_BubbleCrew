@@ -73,3 +73,4 @@ crashlytics-build.properties
 
 #Shit files that dont make lfs work
 *.dylib
+*.asmdef
