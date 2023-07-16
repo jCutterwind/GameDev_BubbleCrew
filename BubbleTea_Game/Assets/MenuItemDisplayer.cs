@@ -8,6 +8,8 @@ public class MenuItemDisplayer : MonoBehaviour
     [SerializeField] private TMP_Text text;
     [SerializeField] private RectTransform panel;
     [SerializeField] private IngredientDisplayer ingDisp;
+    [SerializeField] private float sizeMult;
+
 
     public void setMenuItem(MenuItem item)
     {
@@ -16,6 +18,7 @@ public class MenuItemDisplayer : MonoBehaviour
         {
             IngredientDisplayer ing1 = Instantiate(ingDisp);
             ing1.setIng(ing);
+            ing1.gameObject.transform.localScale *= sizeMult;
             ing1.transform.SetParent(panel, false);
         }
     }
