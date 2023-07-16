@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     public SpriteRenderer spriteRend;
-    [SerializeField] private List<Ingredient> ingredients;
+    [SerializeField] private List<IngredientQuantityData> ingredients;
     [SerializeField] private IngredientDisplayer ingDisp;
     [SerializeField] private RectTransform panel;
   
 
-    public void setCharacter(Sprite sprite, List<Ingredient> ingredients)
+    public void setCharacter(Sprite sprite, List<IngredientQuantityData> ingredients)
     {
         this.spriteRend.sprite = sprite;
         this.ingredients = ingredients;
@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     {
         if(ingredients!=null)
         {
-            foreach (Ingredient ing in ingredients)
+            foreach (IngredientQuantityData ing in ingredients)
             {
                 IngredientDisplayer ingDisp1 = Instantiate(ingDisp);
                 ingDisp1.setIng(ing);

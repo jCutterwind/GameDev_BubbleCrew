@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite[] characterSprites;
     [SerializeField] private int maxQuantity;
     [SerializeField] private Character client;
-    private List<Ingredient> currentIngs;
+    private List<IngredientQuantityData> currentIngs;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentIngs = new List<Ingredient>();
+        currentIngs = new List<IngredientQuantityData>();
         NewTurn();
     }
 
@@ -47,11 +47,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    Ingredient addRandomIng(Ingredient[] ings)
+    IngredientQuantityData addRandomIng(Ingredient[] ings)
     {
+        IngredientQuantityData result = new IngredientQuantityData();
         int index = Random.Range(0, ings.Length);
-        Debug.Log(index);
-        Ingredient result = ings[index];
+        //Debug.Log(index);
+        result.ingredient = ings[index];
         result.quantity = Random.Range(1, maxQuantity);
         Debug.Log("added ... " + result.ToString());
         return result;

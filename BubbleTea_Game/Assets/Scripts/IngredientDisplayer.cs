@@ -15,9 +15,9 @@ public class IngredientDisplayer : MonoBehaviour
         this.textMeshPro.text = textMeshPro;
     }
 
-    public void setIng(Ingredient ing)
+    public void setIng(IngredientQuantityData ing)
     {
-        this.image.sprite = ing.icon;
+        this.image.sprite = ing.ingredient.icon;
         this.textMeshPro.text = "x" + ing.quantity;
     }
 }

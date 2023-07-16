@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private MenuItem[] menu;
+    [SerializeField] private RectTransform menuPanel;
+    [SerializeField] private MenuItemDisplayer itemDisp;
+
+
+    private void Start()
     {
-        
+        foreach(MenuItem item in menu)
+        {
+            MenuItemDisplayer disp = Instantiate(itemDisp);
+            disp.setMenuItem(item);
+            disp.transform.SetParent(menuPanel, false);
+        }
     }
 }
