@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance = null;
 
     [SerializeField] private Ingredient[] teas; 
     [SerializeField] private Ingredient[] toppings;
     [SerializeField] private Sprite[] characterSprites;
     [SerializeField] private int maxQuantity;
-    [SerializeField] private Character characterModel;
+    [SerializeField] private Character client;
+    private List<Ingredient> currentIngs;
+
+    private void Awake()
+    {
+        if(instance==null)
+        {
+            instance = this;
+        } else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        currentIngs = new List<Ingredient>();
         NewTurn();
     }
 
@@ -24,11 +39,10 @@ public class GameManager : MonoBehaviour
 
     void NewTurn()
     {
-        List<Ingredient> ingredients = new List<Ingredient>();
-        ingredients.Add(addRandomIng(teas));
-        ingredients.Add(addRandomIng(toppings));
-        Character character = Instantiate(characterModel);
-        character.setCharacter(characterSprites[Random.Range(0, characterSprites.Length - 1)], ingredients);
+        currentIngs.Clear();
+        currentIngs.Add(addRandomIng(teas));
+        currentIngs.Add(addRandomIng(toppings));
+        client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], currentIngs);
 
 
     }
