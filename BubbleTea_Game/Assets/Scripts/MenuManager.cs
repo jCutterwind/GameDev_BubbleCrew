@@ -5,14 +5,14 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
 
-    [SerializeField] private MenuItem[] menu;
+    private MenuItem[] menu;
     [SerializeField] private RectTransform menuPanel;
     [SerializeField] private MenuItemDisplayer itemDisp;
 
     [SerializeField][Range(0.3f, 2.8f)]private float sizeMult = 1;
 
 
-    private void Start()
+    public void setMenu(MenuItem[] menu)
     {
         foreach(MenuItem item in menu)
         {

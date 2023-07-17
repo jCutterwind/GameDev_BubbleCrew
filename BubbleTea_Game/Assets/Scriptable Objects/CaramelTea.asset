@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc8a490a82e931746a890e1b9df6e758, type: 3}
-  m_Name: Fruit Tea
+  m_Name: CaramelTea
   m_EditorClassIdentifier: 
-  ingredient: Fruit Tea
+  ingredient: Caramel Tea
   type: 0
-  difficulty: 0
-  icon: {fileID: 21300000, guid: 9f2be4c008d5d9a4d92c0e9a75b97a0c, type: 3}
-  ID: 1000
+  difficulty: 1
+  icon: {fileID: 21300000, guid: 144815bbb95f768479ebaa15a71c338e, type: 3}
+  ID: 10000

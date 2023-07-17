@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8a490a82e931746a890e1b9df6e758, type: 3}
   m_Name: Jelly
   m_EditorClassIdentifier: 
-  type: Jelly
+  ingredient: Jelly
+  type: 1
+  difficulty: 0
   icon: {fileID: 21300000, guid: d0ed0deb787891f4c9fc18793a79f37b, type: 3}
   ID: 100
-  quantity: 1

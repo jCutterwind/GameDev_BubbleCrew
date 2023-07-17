@@ -13,7 +13,7 @@ public class MenuItemDisplayer : MonoBehaviour
 
     public void setMenuItem(MenuItem item)
     {
-        this.text.text = item.itemName;
+        this.text.text = item.name;
         foreach(IngredientQuantityData ing in item.ingredientQuantities)
         {
             IngredientDisplayer ing1 = Instantiate(ingDisp);
