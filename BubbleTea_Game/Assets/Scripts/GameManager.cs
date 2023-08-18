@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public enum diff
 {
@@ -14,23 +15,37 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
-    [SerializeField] private Ingredient[] teas; 
-    [SerializeField] private Ingredient[] toppings;
-    [SerializeField] private Sprite[] characterSprites;
-    [SerializeField] private MenuItem[] fullMenu;
-    private MenuItem[] currMenu;
+    [SerializeField] private AllIngredients ingredients;
     [SerializeField] private MenuManager menuManager;
+    [SerializeField] private ClientManager clientManager;
+
+
+
+
+    [SerializeField] private Ingredient[] teas;
+    [SerializeField] private Ingredient[] toppings;
+
+    [SerializeField] private Sprite[] characterSprites;
+
+    [SerializeField] private MenuItem[] fullMenu;
+
+    private MenuItem[] currMenu;
+
     [SerializeField] private int maxQuantity;
-    [SerializeField] private Character client;
+
+    [SerializeField] private Client client;
+
     private List<IngredientQuantityData> currentIngs;
 
-    public diff difficultySetting;
+    [SerializeField] private diff difficultySetting;
     private int score;
 
     //FOR RANDOM CHECKER
     //[SerializeField][Range(0.1f, 0.9f)] private float randomThresh;
-    [SerializeField][Range(0.1f, 0.9f)] private float mediumThresh, hardThresh;
-
+    [SerializeField][Range(0.1f, 0.9f)] private static float mediumThresh, hardThresh;
+    public static float MediumThresh => mediumThresh;
+    public static float HardThresh => hardThresh;
+ 
     private void Awake()
     {
         if(instance==null)
@@ -46,6 +61,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentIngs = new List<IngredientQuantityData>();
+        setMenu();
         NewTurn();
     }
 
@@ -57,8 +73,7 @@ public class GameManager : MonoBehaviour
 
     void NewTurn()
     {
-        RandomOrder();
-        
+        RandomOrder();  
     }
 
     IngredientQuantityData addRandomIng(Ingredient[] ings)
@@ -75,6 +90,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("added ... " + result.ToString());
         return result;
     }
+
 
     private float returnDiffThresh(Ingredient ing)
     {
@@ -111,42 +127,36 @@ public class GameManager : MonoBehaviour
         return Random.Range(0.0f, 1.0f) > 1;
     }
 
+
     private void RandomOrder()
     {
         currentIngs.Clear();
-        currentIngs.Add(addRandomIng(teas));
-        currentIngs.Add(addRandomIng(toppings));
-        client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], currentIngs);
+        currentIngs.Add(addRandomIng(ingredients.teas));
+        currentIngs.Add(addRandomIng(ingredients.toppings));
+        if(Random.value < ((float)difficultySetting)/((float)diff.HARD))
+        {
+            currentIngs.Add(addRandomIng(ingredients.toppings));
+        }
+
+        clientManager.createRandomOrderChar(currentIngs.ToArray());
+        //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], currentIngs);
+
     }
 
     private void NamedOrder()
     {
         currentIngs.Clear();
-        currMenu = newMenu(fullMenu);
-        menuManager.setMenu(currMenu);
+        //currMenu = newMenu(fullMenu);
+        //menuManager.setMenu(currMenu);
         MenuItem order = currMenu[Random.Range(0, currMenu.Length)];
         currentIngs = order.ingredientQuantities.ToList<IngredientQuantityData>();
-        client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], order);
+        //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], order);
     }
 
-    private MenuItem[] newMenu(MenuItem[] fullMenu)
+
+    private void setMenu()
     {
-        MenuItem[] result = new MenuItem[6];
-        for(int i=0;i<6;i++)
-        {
-            MenuItem item = new MenuItem();
-
-            do
-            {
-                item = fullMenu[Random.Range(0, fullMenu.Length)];
-                //Debug.Log("Trying to add " + item.ToString());
-            } while (item.getDiff() > difficultySetting || returnDiffThresh(item.getDiff()) < Random.value || result.ToList<MenuItem>().Contains(item));
-
-            result[i] = item;
-            //Debug.Log("Added ITEM to currMenu = " + item.ToString());
-        }
-
-        return result;
+        menuManager.newMenu(difficultySetting);
     }
 
     private List<Ingredient> item2Ing (MenuItem item)
