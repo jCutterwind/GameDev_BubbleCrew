@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
 
     private List<IngredientQuantityData> currentIngs;
 
-    [SerializeField] private diff difficultySetting;
-    private int score;
+    private static diff difficultySetting;
+    [SerializeField] private diff DifficultySetting;
 
     //FOR RANDOM CHECKER
     //[SerializeField][Range(0.1f, 0.9f)] private float randomThresh;
@@ -67,12 +67,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DifficultySetting = difficultySetting;
+
         if(Input.GetKeyDown("space"))
         {
             NewTurn();
         }
     }
 
+    public static void upDiff()
+    {
+        difficultySetting++;
+        if (difficultySetting > diff.HARD)
+        {
+            difficultySetting = diff.HARD;
+        }
+    }
+
+    public static void downDiff()
+    {
+        difficultySetting--;
+        if (difficultySetting < diff.EASY)
+        {
+            difficultySetting = diff.EASY;
+        }
+    }    
     void NewTurn()
     {
         turnType turn1 = weightedTurnChoice();

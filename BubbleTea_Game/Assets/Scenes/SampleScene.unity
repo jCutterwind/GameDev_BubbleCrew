@@ -2083,7 +2083,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8ecfbe414a0ee594f8ff736a289c2afa, type: 3}
   clientDisp: {fileID: 1280897738}
   greetings: {fileID: 11400000, guid: e32200aebb793a34e9c28da13bc238eb, type: 2}
-  animSpeed: 1
 --- !u!1 &1655851171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2390,22 +2389,22 @@ MonoBehaviour:
   menuManager: {fileID: 1414656759}
   clientManager: {fileID: 1629227237}
   maxQuantity: 3
-  difficultySetting: 0
+  DifficultySetting: 0
   weights:
   - weights:
     - 17
-    - 3
-    - 1
+    - 5
+    - 5
     type: 0
   - weights:
+    - 1
+    - 11
     - 3
-    - 16
-    - 4
     type: 1
   - weights:
     - 0
     - 1
-    - 15
+    - 4
     type: 2
 --- !u!4 &1890776846
 Transform:
@@ -2421,6 +2420,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1896434088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1896434090}
+  - component: {fileID: 1896434089}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1896434089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896434088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194a871e32e7fa64f88b812872b0140f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upScore: 0
+  downScore: 0
+  maxIncrement: 5
+  scoreMultiplier:
+    scoreMult: 0
+    maxScoreMult: 5
+    maxScoreCounter: 5
+    scoreMultCounter: 0
+--- !u!4 &1896434090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896434088}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4201312, y: 0.83281887, z: 5.8981447}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1955578846
 GameObject:
@@ -2710,6 +2761,10 @@ PrefabInstance:
       propertyPath: ingDisp
       value: 
       objectReference: {fileID: 1426747011}
+    - target: {fileID: 3923762826459704072, guid: a2e41a2fe11cd6e4292dce588bbef0c2, type: 3}
+      propertyPath: animSpeed
+      value: 2.39
+      objectReference: {fileID: 0}
     - target: {fileID: 7577446380145218958, guid: a2e41a2fe11cd6e4292dce588bbef0c2, type: 3}
       propertyPath: m_Name
       value: ClientDisplayer
