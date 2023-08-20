@@ -20,4 +20,9 @@ public class IngredientDisplayer : MonoBehaviour
         this.image.sprite = ing.ingredient.icon;
         this.textMeshPro.text = "x" + ing.quantity;
     }
+
+    public void Clear()
+    {
+        Destroy(this);
+    }
 }

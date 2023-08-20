@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] Button leftButton, rightButton;
     private Transform targetPos;
     private CamPos camPos;
+    public CamPos CamPos => camPos;
     [SerializeField] Transform centerPos, leftPos, rightPos;
 
     void Start()

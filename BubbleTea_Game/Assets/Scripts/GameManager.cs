@@ -11,6 +11,11 @@ public enum diff
     EASY, MEDIUM, HARD
 }
 
+public enum turnType
+{
+    RANDOM, MENU, PERSON
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
@@ -19,21 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MenuManager menuManager;
     [SerializeField] private ClientManager clientManager;
 
-
-
-
-    [SerializeField] private Ingredient[] teas;
-    [SerializeField] private Ingredient[] toppings;
-
-    [SerializeField] private Sprite[] characterSprites;
-
-    [SerializeField] private MenuItem[] fullMenu;
-
-    private MenuItem[] currMenu;
-
     [SerializeField] private int maxQuantity;
-
-    [SerializeField] private Client client;
 
     private List<IngredientQuantityData> currentIngs;
 
@@ -45,7 +36,15 @@ public class GameManager : MonoBehaviour
     [SerializeField][Range(0.1f, 0.9f)] private static float mediumThresh, hardThresh;
     public static float MediumThresh => mediumThresh;
     public static float HardThresh => hardThresh;
- 
+
+    [Serializable] private class weightedEntry
+    {
+        public float[] weights = new float[3];
+        public turnType type;
+    }
+
+    [SerializeField] private weightedEntry[] weights;
+
     private void Awake()
     {
         if(instance==null)
@@ -68,12 +67,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown("space"))
+        {
+            NewTurn();
+        }
     }
 
     void NewTurn()
     {
-        RandomOrder();  
+        turnType turn1 = weightedTurnChoice();
+        Debug.Log(turn1);
+        switch(turn1)
+        //switch(weightedTurnChoice())
+        {
+            case turnType.RANDOM:
+                RandomOrder();
+                //Debug.Log("RANDOM ORDER");
+                break;
+            case turnType.MENU:
+                MenuItemOrder();
+                //Debug.Log("MENU ITEM ORDER");
+                break;
+            case turnType.PERSON:
+                Debug.Log("PERSONALITY ORDER");
+                break;  
+        }
     }
 
     IngredientQuantityData addRandomIng(Ingredient[] ings)
@@ -87,7 +105,7 @@ public class GameManager : MonoBehaviour
         while (ing.difficulty > difficultySetting && returnDiffThresh(ing)<Random.value);
         result.ingredient = ing;
         result.quantity = Random.Range(1, maxQuantity);
-        Debug.Log("added ... " + result.ToString());
+        //Debug.Log("added ... " + result.ToString());
         return result;
     }
 
@@ -127,6 +145,33 @@ public class GameManager : MonoBehaviour
         return Random.Range(0.0f, 1.0f) > 1;
     }
 
+    private turnType weightedTurnChoice()
+    {
+        int index = ((int)difficultySetting);
+        //Debug.Log(index);
+        turnType turn = 0;
+        float totWeight = 0;
+        foreach (weightedEntry weight in weights)
+        {
+            totWeight += weight.weights[index];
+        }
+
+        float randomWeight = Random.Range(0, totWeight);
+
+        if (randomWeight < weights[0].weights[index])
+        {
+            turn = turnType.RANDOM;
+        }
+        else if (randomWeight < weights[0].weights[index] + weights[1].weights[index])
+        {
+            turn = turnType.MENU;
+        }
+        else
+        {
+            turn = turnType.PERSON;
+        }
+        return turn;
+    }
 
     private void RandomOrder()
     {
@@ -143,13 +188,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void NamedOrder()
+    private void MenuItemOrder()
     {
         currentIngs.Clear();
-        //currMenu = newMenu(fullMenu);
-        //menuManager.setMenu(currMenu);
-        MenuItem order = currMenu[Random.Range(0, currMenu.Length)];
+        MenuItem order = menuManager.getRandomMenuItem();
         currentIngs = order.ingredientQuantities.ToList<IngredientQuantityData>();
+        clientManager.createNamedOrderChar(order);
         //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], order);
     }
 
@@ -159,6 +203,9 @@ public class GameManager : MonoBehaviour
         menuManager.newMenu(difficultySetting);
     }
 
+
+    //Deprecati
+    /*
     private List<Ingredient> item2Ing (MenuItem item)
     {
         List<Ingredient> result = new List<Ingredient>();
@@ -188,6 +235,7 @@ public class GameManager : MonoBehaviour
         return menu.ToList<MenuItem>().Contains(item);
     }
 
+    */
 
     //FUNZIONI PER ORDER CHECKER
 

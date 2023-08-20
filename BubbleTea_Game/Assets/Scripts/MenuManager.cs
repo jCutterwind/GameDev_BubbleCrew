@@ -81,6 +81,13 @@ public class MenuManager : MonoBehaviour
     public MenuItem getRandomMenuItem()
     {
         MenuItem item = null;
+
+        if(this.currentMenu != null)
+        {
+            item = currentMenu[Random.Range(0, currentMenu.Length)];
+            //da implementare meglio. Come si fa con la difficoltà?
+        }
+
         return item;
     }
 

@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public abstract class Client
+public abstract class Client : MonoBehaviour
 {
-    protected ClientDisplayer clientDisplayer;
+    [SerializeField] protected ClientDisplayer clientDisplayer;
     protected Sprite sprite;
 
     public Client(ClientDisplayer clientDisplayer, Sprite sprite)
@@ -17,4 +17,5 @@ public abstract class Client
     }
 
     public abstract void setClient();
+
 }
