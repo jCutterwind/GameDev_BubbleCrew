@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum CamPos
+{
+    LEFT, CENTER, RIGHT
+}
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private float moveSpeed;
-    private bool isLeft = true;
     [SerializeField] Button leftButton, rightButton;
     private Transform targetPos;
-    [SerializeField] Transform leftPos, rightPos;
-
-
-    private void OnMouseUpAsButton()
-    {
-        
-    }
+    private CamPos camPos;
+    public CamPos CamPos => camPos;
+    [SerializeField] Transform centerPos, leftPos, rightPos;
 
     void Start()
     {
-        targetPos = leftPos;
+        targetPos = centerPos;
+        camPos = CamPos.CENTER;
     }
 
     // Update is called once per frame
@@ -35,25 +35,43 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
     }
 
-    public void SwitchTarget(float pos)
+    public void MoveRight()
     {
-        switch(pos)
+        if(camPos == CamPos.CENTER)
         {
-            case 0:
-                targetPos = leftPos;
-                leftButton.interactable = false;
-                rightButton.interactable = true;
-                break;
-            case 1:
-                targetPos = rightPos;
-                rightButton.interactable = false;
-                leftButton.interactable = true;
-                break;
-            default:
-                break;
+            targetPos = leftPos;
+            leftButton.interactable = true;
+            rightButton.interactable = false;
+            camPos = CamPos.RIGHT;
+        } else if (camPos == CamPos.LEFT)
+        {
+            targetPos = centerPos;
+            leftButton.interactable = true;
+            rightButton.interactable = true;
+            camPos = CamPos.CENTER;
         }
+
     }
-    
+
+    public void MoveLeft()
+    {
+        if (camPos == CamPos.CENTER)
+        {
+            targetPos = rightPos;
+            leftButton.interactable = false;
+            rightButton.interactable = true;
+            camPos = CamPos.LEFT;
+        }
+        else if (camPos == CamPos.RIGHT)
+        {
+            targetPos = centerPos;
+            leftButton.interactable = true;
+            rightButton.interactable = true;
+            camPos = CamPos.CENTER;
+        }
+
+    }
+
 
 
 

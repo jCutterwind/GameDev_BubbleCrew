@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{704bc1f0-ae38-41d9-a895-61fd8c9378fd}">
+		<property name="assetPath">
+			<value>CelestePhrases/3/Glocken4(3).wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>12.374988662131519</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8efafb7d-f8e6-472c-81ec-0277c4928a08}</destination>
+		</relationship>
+	</object>
+</objects>

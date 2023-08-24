@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{891ff78b-7200-431c-9bbb-0797c464adef}">
+		<property name="name">
+			<value>STARS</value>
+		</property>
+		<relationship name="folder">
+			<destination>{4365c737-e581-4b1d-a706-67f2b3388686}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5306e2db-fc3f-46ab-b8c6-6a2f04cb8fed}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5306e2db-fc3f-46ab-b8c6-6a2f04cb8fed}">
+		<property name="minimum">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>5</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{407be1d1-20a5-4d8c-9b02-229d86ec26bf}</destination>
+		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{407be1d1-20a5-4d8c-9b02-229d86ec26bf}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>cursorPosition</value>
+		</property>
+	</object>
+</objects>

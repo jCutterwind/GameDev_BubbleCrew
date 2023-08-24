@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{7d5df2af-11cd-446a-af3f-5e82f33f032f}">
+		<property name="assetPath">
+			<value>CelestePhrases/2/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8efafb7d-f8e6-472c-81ec-0277c4928a08}</destination>
+		</relationship>
+	</object>
+</objects>
