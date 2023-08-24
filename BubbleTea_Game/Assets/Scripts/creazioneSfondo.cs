@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,7 +21,10 @@ public class creazioneSfondo : MonoBehaviour
     private GameObject ingrediente_da_scambiare;
     private GameObject ingrediente_da_scambiare2;
     private int i1, i2, j1, j2;
-  
+    private SpriteRenderer ingre1, ingre2, ingre3;
+    private bool controllo;
+
+    
 
 
     void Start()
@@ -33,13 +37,25 @@ public class creazioneSfondo : MonoBehaviour
                 mat_ingredienti = new GameObject[altezza, larghezza];
                 ingredienti = new GameObject("Ingredienti");
                 SetupMatrici();
+                //controllo = ControlloMatch();
+                //while(controllo) 
+                //{
+                 //   controllo=ControlloMatch();
+                //}
             }
         }
 
     }
     private void Update()
     {
-        ScambiaIngredienti();
+        if (ScambiaIngredienti())
+        {
+            //controllo=ControlloMatch();
+            //while (controllo)
+            //{
+            //    controllo = ControlloMatch();
+            //}
+        }
     }
     private void SetupMatrici()
     {
@@ -57,7 +73,7 @@ public class creazioneSfondo : MonoBehaviour
                 mat[i, j] = Instantiate(sfondo, vettore, Quaternion.identity);
                 mat[i, j].name = "(" + i + "," + j + ")";
                 mat[i, j].transform.parent = this.transform;
-                int num = Random.Range(0, ingredienti_prefab.Length);
+                int num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
                 vettore.z = vettore.z - 0.1f;
                 mat_ingredienti[i,j] = Instantiate(ingredienti_prefab[num], vettore, Quaternion.identity);
                 mat_ingredienti[i,j].name = "Ingrediente #" + count;
@@ -69,8 +85,9 @@ public class creazioneSfondo : MonoBehaviour
 
     }
 
-    public void ScambiaIngredienti()
+    public bool ScambiaIngredienti()
     {
+        bool Scambiati = false;
         ingrediente_da_scambiare = null;
         ingrediente_da_scambiare2 = null;
         for (int i = 0; i < mat_ingredienti.GetLength(0); i++)
@@ -108,6 +125,7 @@ public class creazioneSfondo : MonoBehaviour
                     ingrediente_da_scambiare2.GetComponent<MoveIngrediente>().setPosizioneDaCambiare(ingrediente_da_scambiare.transform.position);
                     mat_ingredienti[i1, j1] = ingrediente_da_scambiare2;
                     mat_ingredienti[i2, j2] = ingrediente_da_scambiare;
+                    Scambiati = true;
                 }
 
             }
@@ -119,9 +137,81 @@ public class creazioneSfondo : MonoBehaviour
                     ingrediente_da_scambiare2.GetComponent<MoveIngrediente>().setPosizioneDaCambiare(ingrediente_da_scambiare.transform.position);
                     mat_ingredienti[i1, j1] = ingrediente_da_scambiare2;
                     mat_ingredienti[i2, j2] = ingrediente_da_scambiare;
+                    Scambiati = true;
                 }
             }
         }
+        return Scambiati;
     }
+    
+    public bool ControlloMatch()
+    {
+        bool Match=false;
+        int num;
+
+        for( int i = 0; i < mat_ingredienti.GetLength(0); i++)
+        {
+            for (int j=0; j+2<mat_ingredienti.GetLength(1); j++)
+            {   
+                ingre1 = mat_ingredienti[i, j].GetComponent<SpriteRenderer>();
+                ingre2= mat_ingredienti[i, j+1].GetComponent<SpriteRenderer>();
+                if (ingre2.sprite == ingre1.sprite)
+                {
+                    ingre3 = mat_ingredienti[i, j+2].GetComponent<SpriteRenderer>();
+                    if (ingre3.sprite == ingre2.sprite)
+                    {
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i, j].GetComponent<SpriteRenderer>().sprite= ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i, j+1].GetComponent<SpriteRenderer>().sprite = ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i, j+2].GetComponent<SpriteRenderer>().sprite = ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        Match = true;
+                        Debug.Log("Match 3 !!");
+                        break;
+                    }
+                    else
+                        j++;
+                }
+            }
+        }
+
+        for (int j = 0; j < mat_ingredienti.GetLength(1); j++)
+        {
+            for (int i = 0; i + 2 < mat_ingredienti.GetLength(0); i++)
+            {
+                ingre1 = mat_ingredienti[i, j].GetComponent<SpriteRenderer>();
+                ingre2 = mat_ingredienti[i + 1, j].GetComponent<SpriteRenderer>();
+                if (ingre2.sprite == ingre1.sprite)
+                {
+                    ingre3 = mat_ingredienti[i + 2, j].GetComponent<SpriteRenderer>();
+                    if (ingre3.sprite == ingre2.sprite)
+                    {
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i, j].GetComponent<SpriteRenderer>().sprite = ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i + 1, j].GetComponent<SpriteRenderer>().sprite = ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        num = UnityEngine.Random.Range(0, ingredienti_prefab.Length);
+                        mat_ingredienti[i + 2, j].GetComponent<SpriteRenderer>().sprite = ingredienti_prefab[num].GetComponent<SpriteRenderer>().sprite;
+
+                        Match = true;
+                        Debug.Log("Match 3 !!");
+                        break;
+                    }
+                    else
+                        i++;
+                }
+            }
+        }
+
+
+        return Match;
+    }
+
 
 }

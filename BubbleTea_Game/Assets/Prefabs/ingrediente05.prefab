@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 56960222169797282, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
       propertyPath: m_Name
-      value: Circle Variant 2
+      value: ingrediente05
       objectReference: {fileID: 0}
     - target: {fileID: 2964262319177829446, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
       propertyPath: m_RootOrder
@@ -57,12 +57,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3387261892966400706, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 094eb54a5a39a6945acd45981b267050, type: 3}
+    - target: {fileID: 3387261892966400706, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.72363704
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387261892966400706, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
+      propertyPath: m_Color.g
+      value: 0.09493288
       objectReference: {fileID: 0}
     - target: {fileID: 3387261892966400706, guid: f3892d0f2b87aa5438b9c3b752201bf3, type: 3}
       propertyPath: m_Color.r
-      value: 0.27074957
+      value: 0.9433962
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -92,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e43f67f2c6acf4face8ed3ad2a0e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeAngle: 0
+  speed: 7
 --- !u!58 &-4389200204488833966
 CircleCollider2D:
   m_ObjectHideFlags: 0

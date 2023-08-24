@@ -10,11 +10,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6797656464739902555, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
       propertyPath: m_Name
-      value: Circle Variant 1
+      value: ingrediente02
       objectReference: {fileID: 0}
     - target: {fileID: 8186846147261592635, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 094eb54a5a39a6945acd45981b267050, type: 3}
+    - target: {fileID: 8186846147261592635, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
       propertyPath: m_Color.b
-      value: 0.63265467
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186846147261592635, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
+      propertyPath: m_Color.g
+      value: 0.029711246
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186846147261592635, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8628704817496996543, guid: 710d7507d7d80804da0605c7f5ad3504, type: 3}
       propertyPath: m_RootOrder
@@ -88,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e43f67f2c6acf4face8ed3ad2a0e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swipeAngle: 0
+  speed: 7
 --- !u!58 &6327469073519922985
 CircleCollider2D:
   m_ObjectHideFlags: 0

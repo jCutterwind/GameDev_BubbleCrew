@@ -23,7 +23,7 @@ public class MoveIngrediente : MonoBehaviour
     private void OnMouseDown()
     {
         isSelected = true;
-        Debug.Log(this.name + " è stato selezionato!");
+        //Debug.Log(this.name + " è stato selezionato!");
     }
     private void OnMouseUp()
     {
