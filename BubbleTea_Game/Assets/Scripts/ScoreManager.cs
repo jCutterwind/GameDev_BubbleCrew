@@ -88,7 +88,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private int maxIncrement = 5;
     [SerializeField] private ScoreMultiplier scoreMultiplier;
     [SerializeField] private starTier currentTier;
-    [SerializeField] private FMODController OSTcontroller;
+    
 
     [SerializeField] private int scoreMult = 0;
     [SerializeField] private FixedFloatQueue oldStarsCounter;
@@ -182,7 +182,7 @@ public class ScoreManager : MonoBehaviour
     private void updateStars()
     {
         this.currentTier = (starTier)Mathf.FloorToInt(this.currentStarNum);
-        this.OSTcontroller.setStar(this.currentTier);
+        
     }
 
     public void updateMult()
