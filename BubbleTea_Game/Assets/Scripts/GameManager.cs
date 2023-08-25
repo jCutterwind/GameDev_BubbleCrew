@@ -108,7 +108,8 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("MENU ITEM ORDER");
                 break;
             case turnType.PERSON:
-                Debug.Log("PERSONALITY ORDER");
+                //Debug.Log("PERSONALITY ORDER");
+                MenuItemOrder();
                 break;  
         }
     }
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
         } 
         while (ing.difficulty > difficultySetting && returnDiffThresh(ing)<Random.value);
         result.ingredient = ing;
-        result.quantity = Random.Range(1, maxQuantity);
+        result.quantity = Random.Range(1, (int) difficultySetting + 2);
         //Debug.Log("added ... " + result.ToString());
         return result;
     }

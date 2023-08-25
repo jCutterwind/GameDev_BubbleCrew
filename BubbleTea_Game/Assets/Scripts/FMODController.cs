@@ -5,7 +5,7 @@ using UnityEngine;
 public class FMODController : MonoBehaviour
 {
     [SerializeField] private starTier currentStars = starTier.ThreeStars;
-    [SerializeField][Range(1,5)]private float currentMusicSlider;
+    [SerializeField][Range(1,5)]private float currentMusicSlider = 3;
     [SerializeField] private float transitionSpeed;
 
     private FMOD.Studio.EventInstance instance;
