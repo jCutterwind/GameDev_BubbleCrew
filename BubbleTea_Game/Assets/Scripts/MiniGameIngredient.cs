@@ -5,17 +5,46 @@ using UnityEngine;
 public class MiniGameIngredient : MonoBehaviour
 {
     private Ingredient ingredient;
-    [SerializeField] private Vector2 gridPosition;
+    [SerializeField] private Vector2Int gridPosition;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    public Vector2 GridPosition { get=>gridPosition; set => gridPosition = value; }
+    private Vector2 currentPosition;
+    [SerializeField] private float offset, speed;
+    
+    public Ingredient Ingredient { get => ingredient; }
+    public Vector2 CurrentPosition { get => currentPosition; set { currentPosition = value; } }
+    public Vector2Int GridPosition { get=>gridPosition; set => gridPosition = value; }
 
-    public void setIngredient(Ingredient ingredient, Vector2 gridPosition)
+    public void setIngredient(Ingredient ingredient, Vector2Int gridPosition)
     {
         this.ingredient = ingredient;   
         this.gridPosition = gridPosition;
         if (this.ingredient != null)
         {
             this.spriteRenderer.sprite = ingredient.icon;
+        }
+    }
+
+    public void setIngredient(Ingredient ingredient)
+    {
+        this.ingredient = ingredient;
+        if (this.ingredient != null)
+        {
+            this.spriteRenderer.sprite = ingredient.icon;
+        }
+    }
+
+    private void Start()
+    {
+        this.currentPosition = transform.position;
+    }
+
+    private void Update()
+    {
+        if (Vector2.Distance(this.currentPosition, this.transform.position) > offset)
+            Vector2.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
+        else
+        {
+            this.transform.position = this.currentPosition;
         }
     }
 
