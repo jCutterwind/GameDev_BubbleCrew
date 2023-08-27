@@ -22,7 +22,7 @@ public class GridCreation : MonoBehaviour
         height = (upperLeftCorner.transform.position.y - this.transform.position.y) *2;
         width = (upperLeftCorner.transform.position.x - this.transform.position.x) *2;
         gridSize = new Vector2(width/(cols-1), height/(rows-1));
-        //gridManager.offset = Mathf.Abs( Mathf.Min(gridSize.x, gridSize.y));
+        gridManager.offset = Mathf.Abs( Mathf.Min(gridSize.x, gridSize.y))/2;
 
         ingredientsList= new MiniGameIngredient[rows, cols];
         

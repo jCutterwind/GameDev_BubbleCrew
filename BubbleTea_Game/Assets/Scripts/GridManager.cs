@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,12 +14,15 @@ public class GridManager : MonoBehaviour
     private MiniGameIngredient ingr1, ingr2;
     private bool hasChanged = false;
     [SerializeField] private bool isDragging=false;
-    public float offset = 400;
+    public float offset;
     [HideInInspector] public Ingredient[] ingredients;
+    private ArrayList ingredientQuantity;
 
 
     void Start()
     {
+        ingredientQuantity= new ArrayList();
+
         if (ingredientsList != null && ingredients != null)
         {
             CheckMatch3();
@@ -32,61 +36,103 @@ public class GridManager : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        //    if (hit.collider != null)
-        //    {
-        //        ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
-        //        isDragging = true;
-        //    } 
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null)
+            {
+                ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
+                isDragging = true;
+            }
+        }
 
-        //if (isDragging)
-        //{
-        //    BorderCheck();
-        //}
-        
+        if (isDragging && ingr1 != null)
+        {
+            BorderCheck();
+        }
+
     }
 
     private void BorderCheck()
     {
+        Vector2 input = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-        if (Input.mousePosition.x > ingr1.transform.position.x + offset)
+        if (input.x > ingr1.transform.position.x + offset)
         {
-            Debug.Log("uscito dx");
-            //SwitchPos(ingr1.GridPosition.x+1, ingr1.GridPosition.y);
-            isDragging = false;
+            if (ingr1.GridPosition.y + 1 < ingredientsList.GetLength(1))
+            {
+                SwitchPos(ingr1.GridPosition.x, ingr1.GridPosition.y+1);
+                isDragging = false;
+
+                addIngredient(CheckMatch3());
+                while (hasChanged)
+                {
+                    addIngredient(CheckMatch3());
+                }
+            }
+           
         }
-        //else if ()
-        //{
+        else if (input.x < ingr1.transform.position.x - offset)
+        {
+            if (ingr1.GridPosition.y > 0)
+            {
+                SwitchPos(ingr1.GridPosition.x, ingr1.GridPosition.y -1);
+                isDragging = false;
 
-        //}
-        //else if ()
-        //{
+                addIngredient(CheckMatch3());
+                while (hasChanged)
+                {
+                    addIngredient(CheckMatch3());
+                }
+            }
+        }
+        else if (input.y > ingr1.transform.position.y + offset)
+        {
+            if (ingr1.GridPosition.x > 0)
+            {
+                SwitchPos(ingr1.GridPosition.x-1, ingr1.GridPosition.y);
+                isDragging = false;
 
-        //}
-        //else if ()
-        //{
+                addIngredient(CheckMatch3());
+                while (hasChanged)
+                {
+                    addIngredient(CheckMatch3());
+                }
+            }
+        }
+        else if (input.y < ingr1.transform.position.y - offset)
+        {
+            if (ingr1.GridPosition.x + 1 < ingredientsList.GetLength(0))
+            {
+                SwitchPos(ingr1.GridPosition.x+1, ingr1.GridPosition.y);
+                isDragging = false;
 
-        //}
+                addIngredient(CheckMatch3());
+                while (hasChanged)
+                {
+                    addIngredient(CheckMatch3());
+                }
+            }
+        }
     }
 
     private void SwitchPos(int i, int j)
     {
-        Vector2 oldPosition = ingr1.transform.position;
-        Vector2 newPosition = ingredientsList[i,j].transform.position;
+        Vector3 newPosition = ingredientsList[i, j].transform.position;
+        Vector3 oldPosition = ingr1.transform.position;
+      
         ingredientsList[i, j].CurrentPosition = oldPosition;
-        ingr1.CurrentPosition= newPosition;
-
+        ingr1.CurrentPosition = newPosition;
+      
         MiniGameIngredient tmp = ingr1;
         ingredientsList[ingr1.GridPosition.x, ingr1.GridPosition.y] = ingredientsList[i, j];
         ingredientsList[i, j] = tmp;
-
-        //scambiare i gridPos
+      
+        ingredientsList[ingr1.GridPosition.x, ingr1.GridPosition.y].GridPosition = ingr1.GridPosition;
+        ingredientsList[i, j].GridPosition = new Vector2Int (i,j);
     }
 
-    private void CheckMatch3()
+    private Ingredient CheckMatch3()
     {
         hasChanged = false;
 
@@ -103,8 +149,7 @@ public class GridManager : MonoBehaviour
                         ingredientsList[i, j + 2].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
                         
                         hasChanged = true;
-                        Debug.Log("Match 3 !!");
-                        return;
+                        return ingredientsList[i,j].Ingredient;
                     }
                     else
                         j++;
@@ -125,8 +170,7 @@ public class GridManager : MonoBehaviour
                         ingredientsList[i+2, j].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
 
                         hasChanged=true;
-                        Debug.Log("Match 3 !!");
-                        return;
+                        return ingredientsList[i, j].Ingredient;
                     }
                     else
                         i++;
@@ -134,6 +178,30 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        return;
+        return null;
+    }
+
+    private void addIngredient(Ingredient ingredient)
+    {
+        if (ingredient != null)
+        {
+            foreach (IngredientQuantityData element in  ingredientQuantity)
+            {
+                if (element.ingredient == ingredient)
+                {
+                    element.quantity++;
+                    //Debug.Log("aumentato "+ element.ingredient.name + " " +  element.quantity);
+                    return;
+                }
+            }
+           
+            IngredientQuantityData ingr= new IngredientQuantityData();
+            ingr.ingredient=ingredient;
+            ingr.quantity = 1;
+
+            ingredientQuantity.Add(ingr);
+            //Debug.Log("aggiunto " + ingr.ingredient.name);
+        }
+
     }
 }

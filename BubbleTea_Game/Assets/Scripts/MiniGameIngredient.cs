@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MiniGameIngredient : MonoBehaviour
 {
     private Ingredient ingredient;
     [SerializeField] private Vector2Int gridPosition;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private Vector2 currentPosition;
+    private Vector3 currentPosition;
     [SerializeField] private float offset, speed;
     
     public Ingredient Ingredient { get => ingredient; }
-    public Vector2 CurrentPosition { get => currentPosition; set { currentPosition = value; } }
+    public Vector2 CurrentPosition { get => currentPosition; set=>currentPosition = value; }
     public Vector2Int GridPosition { get=>gridPosition; set => gridPosition = value; }
 
     public void setIngredient(Ingredient ingredient, Vector2Int gridPosition)
@@ -40,11 +41,9 @@ public class MiniGameIngredient : MonoBehaviour
 
     private void Update()
     {
-        if (Vector2.Distance(this.currentPosition, this.transform.position) > offset)
-            Vector2.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
-        else
+        if (this.currentPosition != this.transform.position)
         {
-            this.transform.position = this.currentPosition;
+            this.transform.position = Vector2.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
         }
     }
 
