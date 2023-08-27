@@ -170,6 +170,7 @@ MonoBehaviour:
   isDragging: 0
   offset: 0
   ingredients: []
+  seconds: 1
 --- !u!1 &535435111
 GameObject:
   m_ObjectHideFlags: 0

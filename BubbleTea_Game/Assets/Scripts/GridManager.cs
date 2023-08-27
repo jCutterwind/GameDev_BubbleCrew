@@ -17,6 +17,7 @@ public class GridManager : MonoBehaviour
     public float offset;
     [HideInInspector] public Ingredient[] ingredients;
     private ArrayList ingredientQuantity;
+    [SerializeField] private int seconds=3;
 
 
     void Start()
@@ -64,13 +65,10 @@ public class GridManager : MonoBehaviour
                 SwitchPos(ingr1.GridPosition.x, ingr1.GridPosition.y+1);
                 isDragging = false;
 
-                addIngredient(CheckMatch3());
-                while (hasChanged)
-                {
-                    addIngredient(CheckMatch3());
-                }
+                StartCoroutine(MatchDone());
+
             }
-           
+
         }
         else if (input.x < ingr1.transform.position.x - offset)
         {
@@ -79,11 +77,8 @@ public class GridManager : MonoBehaviour
                 SwitchPos(ingr1.GridPosition.x, ingr1.GridPosition.y -1);
                 isDragging = false;
 
-                addIngredient(CheckMatch3());
-                while (hasChanged)
-                {
-                    addIngredient(CheckMatch3());
-                }
+                StartCoroutine(MatchDone());
+
             }
         }
         else if (input.y > ingr1.transform.position.y + offset)
@@ -93,11 +88,8 @@ public class GridManager : MonoBehaviour
                 SwitchPos(ingr1.GridPosition.x-1, ingr1.GridPosition.y);
                 isDragging = false;
 
-                addIngredient(CheckMatch3());
-                while (hasChanged)
-                {
-                    addIngredient(CheckMatch3());
-                }
+                StartCoroutine(MatchDone());
+
             }
         }
         else if (input.y < ingr1.transform.position.y - offset)
@@ -107,11 +99,8 @@ public class GridManager : MonoBehaviour
                 SwitchPos(ingr1.GridPosition.x+1, ingr1.GridPosition.y);
                 isDragging = false;
 
-                addIngredient(CheckMatch3());
-                while (hasChanged)
-                {
-                    addIngredient(CheckMatch3());
-                }
+                StartCoroutine(MatchDone());
+
             }
         }
     }
@@ -143,12 +132,11 @@ public class GridManager : MonoBehaviour
                 if (ingredientsList[i,j].Ingredient.ID == ingredientsList[i, j + 1].Ingredient.ID)
                 {
                     if (ingredientsList[i, j + 1].Ingredient.ID == ingredientsList[i, j + 2].Ingredient.ID)
-                    {
-                        ingredientsList[i, j].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-                        ingredientsList[i, j+1].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-                        ingredientsList[i, j + 2].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-                        
+                    {   
                         hasChanged = true;
+                        Sposta(new Vector2Int(i, j), new Vector2Int(i, j+1), new Vector2Int(i, j+2));
+
+                        
                         return ingredientsList[i,j].Ingredient;
                     }
                     else
@@ -165,11 +153,9 @@ public class GridManager : MonoBehaviour
                 {
                     if (ingredientsList[i+1, j].Ingredient.ID == ingredientsList[i+2, j].Ingredient.ID)
                     {
-                        ingredientsList[i, j].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-                        ingredientsList[i+1, j].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-                        ingredientsList[i+2, j].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-
                         hasChanged=true;
+                        Sposta(new Vector2Int(i,j), new Vector2Int(i+1, j), new Vector2Int(i+2,j));
+
                         return ingredientsList[i, j].Ingredient;
                     }
                     else
@@ -201,6 +187,27 @@ public class GridManager : MonoBehaviour
 
             ingredientQuantity.Add(ingr);
             //Debug.Log("aggiunto " + ingr.ingredient.name);
+        }
+
+    }
+
+    private void Sposta(Vector2Int vec1, Vector2Int vec2, Vector2Int vec3)
+    {
+        ingredientsList[vec1.x, vec1.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
+        ingredientsList[vec2.x, vec2.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
+        ingredientsList[vec3.x, vec3.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
+    }
+   
+    IEnumerator MatchDone()
+    {
+        
+        yield return new WaitForSeconds(seconds);
+
+        addIngredient(CheckMatch3());
+        while (hasChanged)
+        {   
+            yield return new WaitForSeconds(seconds);
+            addIngredient(CheckMatch3());
         }
 
     }
