@@ -82,17 +82,6 @@ public class GridManager : MonoBehaviour
                 isChecking = true;
                 StartCoroutine(AnimationMatch());
 
-                //addIngredient(CheckMatch3());
-                //while (hasChanged)
-                //{
-                //    //while (isAnimation)
-                //    //{
-
-                //    //}
-                //    //yield return new WaitForSeconds(seconds);
-                //    addIngredient(CheckMatch3());
-                //}
-
             }
 
         }
@@ -106,17 +95,6 @@ public class GridManager : MonoBehaviour
                 isChecking = true;
                 StartCoroutine(AnimationMatch());
 
-                //addIngredient(CheckMatch3());
-                //while (hasChanged)
-                //{
-                //    //while (isAnimation)
-                //    //{
-
-                //    //}
-                //    //yield return new WaitForSeconds(seconds);
-                //    addIngredient(CheckMatch3());
-                //}
-
             }
         }
         else if (input.y > ingr1.transform.position.y + offset)
@@ -129,17 +107,6 @@ public class GridManager : MonoBehaviour
                 isChecking = true;
                 StartCoroutine(AnimationMatch());
 
-                //addIngredient(CheckMatch3());
-                //while (hasChanged)
-                //{
-                //    //while (isAnimation)
-                //    //{
-
-                //    //}
-                //    //yield return new WaitForSeconds(seconds);
-                //    addIngredient(CheckMatch3());
-                //}
-
             }
         }
         else if (input.y < ingr1.transform.position.y - offset)
@@ -151,17 +118,6 @@ public class GridManager : MonoBehaviour
                 isDragging = false;
                 isChecking = true;
                 StartCoroutine(AnimationMatch());
-
-                //addIngredient(CheckMatch3());
-                //while (hasChanged)
-                //{
-                //    //while (isAnimation)
-                //    //{
-
-                //    //}
-                //    //yield return new WaitForSeconds(seconds);
-                //    addIngredient(CheckMatch3());
-                //}
 
             }
         }
@@ -250,7 +206,7 @@ public class GridManager : MonoBehaviour
                 if (element.ingredient == ingredient)
                 {
                     element.quantity++;
-                    //Debug.Log("aumentato "+ element.ingredient.name + " " +  element.quantity);
+                    Debug.Log("aumentato "+ element.ingredient.name + " " +  element.quantity);
                     return;
                 }
             }
@@ -260,7 +216,7 @@ public class GridManager : MonoBehaviour
             ingr.quantity = 1;
 
             ingredientQuantity.Add(ingr);
-            //Debug.Log("aggiunto " + ingr.ingredient.name);
+            Debug.Log("aggiunto " + ingr.ingredient.name);
         }
 
     }
@@ -294,6 +250,10 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[0].x, vett[0].y].CurrentPosition = glassPosition.position;
             ingredientsList[vett[1].x, vett[1].y].CurrentPosition = glassPosition.position;
             ingredientsList[vett[2].x, vett[2].y].CurrentPosition = glassPosition.position;
+            
+            ingredientsList[vett[0].x, vett[0].y].CurrentScale = Vector3.zero;
+            ingredientsList[vett[1].x, vett[1].y].CurrentScale = Vector3.zero;
+            ingredientsList[vett[2].x, vett[2].y].CurrentScale = Vector3.zero;
 
             yield return new WaitForSeconds(seconds);
 
@@ -305,14 +265,17 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[1].x, vett[1].y].CurrentPosition = pos2;
             ingredientsList[vett[2].x, vett[2].y].CurrentPosition = pos3;
 
+            
+
 
             //// yield return new WaitForSeconds(seconds);
 
             IngredientGenerator(vett[0], vett[1], vett[2]);
 
-            ingredientsList[vett[0].x, vett[0].y].transform.localScale = Vector3.zero;
-            ingredientsList[vett[1].x, vett[1].y].transform.localScale = Vector3.zero;
-            ingredientsList[vett[2].x, vett[2].y].transform.localScale = Vector3.zero;
+            ingredientsList[vett[0].x, vett[0].y].CurrentScale = scala;
+            ingredientsList[vett[1].x, vett[1].y].CurrentScale = scala;
+            ingredientsList[vett[2].x, vett[2].y].CurrentScale = scala;
+
 
             yield return new WaitForSeconds(seconds);
 
