@@ -9,7 +9,7 @@ public class GridCreation : MonoBehaviour
     [SerializeField] private MiniGameIngredient miniGameIngredient;
     [SerializeField] private Ingredient[] ingredients;
     private Vector2 gridSize;
-    [HideInInspector] public MiniGameIngredient[,] ingredientsList;
+    private MiniGameIngredient[,] ingredientsList;
     [SerializeField] private Transform upperLeftCorner;
     private float height, width;
     [SerializeField] private GridManager gridManager;
@@ -22,7 +22,7 @@ public class GridCreation : MonoBehaviour
         height = (upperLeftCorner.transform.position.y - this.transform.position.y) *2;
         width = (upperLeftCorner.transform.position.x - this.transform.position.x) *2;
         gridSize = new Vector2(width/(cols-1), height/(rows-1));
-        gridManager.offset = Mathf.Abs( Mathf.Min(gridSize.x, gridSize.y))/2;
+        gridManager.Offset = Mathf.Abs( Mathf.Min(gridSize.x, gridSize.y))/2;
 
         ingredientsList= new MiniGameIngredient[rows, cols];
         
@@ -30,8 +30,8 @@ public class GridCreation : MonoBehaviour
         if (miniGameIngredient != null && ingredients != null)
         {
             Create();
-            gridManager.ingredientsList=this.ingredientsList;
-            gridManager.ingredients=this.ingredients;
+            gridManager.IngredientsList=this.ingredientsList;
+            gridManager.Ingredients=this.ingredients;
         }
         
     }

@@ -9,7 +9,7 @@ public class MiniGameIngredient : MonoBehaviour
     [SerializeField] private Vector2Int gridPosition;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Vector3 currentPosition;
-    [SerializeField] private float offset, speed;
+    [SerializeField] private float speed;
     
     public Ingredient Ingredient { get => ingredient; }
     public Vector2 CurrentPosition { get => currentPosition; set=>currentPosition = value; }
