@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb9fb5461e46bb4881e5d1eacf89f3f, type: 3}
   m_Name: Popping Suprise
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Popping Suprise
   ingredientQuantities:
   - ingredient: {fileID: 11400000, guid: 420e2ef82efe9d74ba3a80e2228fb28f, type: 2}
     quantity: 3

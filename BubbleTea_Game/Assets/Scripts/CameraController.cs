@@ -9,6 +9,7 @@ public enum CamPos
 }
 public class CameraController : MonoBehaviour
 {
+    public static CameraController instance;
     // Start is called before the first frame update
     [SerializeField] private float moveSpeed;
     [SerializeField] Button leftButton, rightButton;
@@ -17,6 +18,17 @@ public class CameraController : MonoBehaviour
     public CamPos CamPos => camPos;
     [SerializeField] Transform centerPos, leftPos, rightPos;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         targetPos = centerPos;

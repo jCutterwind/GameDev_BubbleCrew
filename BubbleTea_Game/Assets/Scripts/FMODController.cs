@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class FMODController : MonoBehaviour
 {
-    [SerializeField] private starTier currentStars = starTier.ThreeStars;
+    [SerializeField] private static starTier currentStars = starTier.ThreeStars;
     [SerializeField][Range(1,5)]private float currentMusicSlider = 3;
     [SerializeField] private float transitionSpeed;
 
-    private FMOD.Studio.EventInstance instance;
+    private FMOD.Studio.EventInstance eventInstance;
 
     public FMODUnity.EventReference fmodEvent;
 
-   
+    public static FMODController instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
-        instance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
-        instance.start();
+        eventInstance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+        eventInstance.start();
     }
 
     void Update()
     {
         updateMusicSlider();
-        instance.setParameterByName("STARS", currentMusicSlider);
+        eventInstance.setParameterByName("STARS", currentMusicSlider);
     }
 
-    public void setStar(starTier star)
+    public static void setStar(starTier star)
     {
-        this.currentStars = star;
+        currentStars = star;
     }
 
     private void updateMusicSlider()

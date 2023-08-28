@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb9fb5461e46bb4881e5d1eacf89f3f, type: 3}
   m_Name: Milky Queen
   m_EditorClassIdentifier: 
-  itemName: Classic Milk Tea
+  itemName: Milky Queen
   ingredientQuantities:
   - ingredient: {fileID: 11400000, guid: ea52148be2578f3429aa54d62d7d2352, type: 2}
     quantity: 1

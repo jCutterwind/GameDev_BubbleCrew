@@ -5,13 +5,24 @@ using UnityEngine;
 
 public class ClientManager : MonoBehaviour
 {
-
+    public static ClientManager instance;
     [SerializeField] private Sprite[] clientSprites;
     [SerializeField] private ClientDisplayer clientDisp;
     [SerializeField] private Greetings greetings;
 
     private Client currentClient;
-    
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         currentClient = null;

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public enum starTier
 {
     OneStar = 1, TwoStars = 2, ThreeStars = 3, FourStars = 4, FiveStars = 5
@@ -83,12 +83,12 @@ public class ScoreMultiplier
 
 public class ScoreManager : MonoBehaviour
 {
+    public static ScoreManager instance;
     [SerializeField] private int upScore = 0;
     [SerializeField] private int downScore = 0;
     [SerializeField] private int maxIncrement = 5;
     [SerializeField] private ScoreMultiplier scoreMultiplier;
     [SerializeField] private starTier currentTier;
-    [SerializeField] private FMODController OSTcontroller;
 
     [SerializeField] private int scoreMult = 0;
     [SerializeField] private FixedFloatQueue oldStarsCounter;
@@ -98,7 +98,17 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float totalScore = 0;
 
 
-   
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -146,7 +156,7 @@ public class ScoreManager : MonoBehaviour
                 if (downScore > maxIncrement)
                 {
                     downScore = 0;
-                    GameManager.downDiff();
+                    GameManager.instance.changeDiff(-1);
                 }
             }
         }
@@ -164,7 +174,7 @@ public class ScoreManager : MonoBehaviour
                 if (upScore > maxIncrement)
                 {
                     upScore = 0;
-                    GameManager.upDiff();
+                    GameManager.instance.changeDiff(1);
                 }
             }
         }
@@ -182,7 +192,7 @@ public class ScoreManager : MonoBehaviour
     private void updateStars()
     {
         this.currentTier = (starTier)Mathf.FloorToInt(this.currentStarNum);
-        this.OSTcontroller.setStar(this.currentTier);
+        FMODController.setStar(this.currentTier);
     }
 
     public void updateMult()

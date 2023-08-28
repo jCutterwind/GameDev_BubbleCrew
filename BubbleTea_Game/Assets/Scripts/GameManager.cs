@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEngine.Events;
 
 public enum diff
 {
@@ -28,19 +29,28 @@ public class GameManager : MonoBehaviour
 
     private List<IngredientQuantityData> currentIngs;
 
-    private static diff difficultySetting;
-    [SerializeField] private diff DifficultySetting;
+    private diff difficultySetting;
+    public diff DifficultySetting { get => difficultySetting; set => difficultySetting = value; }
+
+    [SerializeField] private diff DifficultyDisplay;
+
+    [SerializeField] private int orderCounter;
+    //public static int OrderCounter { get; set; }
+    [SerializeField] private int ordersNumToMenuReset = 5;
+    [SerializeField] private float diffMultiplier;
+    [SerializeField][Range(0.2f, 1.0f)] private float diffMultConst;
 
     //FOR RANDOM CHECKER
     //[SerializeField][Range(0.1f, 0.9f)] private float randomThresh;
-    [SerializeField][Range(0.1f, 0.9f)] private static float mediumThresh, hardThresh;
-    public static float MediumThresh => mediumThresh;
-    public static float HardThresh => hardThresh;
+    //[SerializeField][Range(0.1f, 0.9f)] private float mediumThresh, hardThresh;
+    //public float MediumThresh => mediumThresh;
+    //public float HardThresh => hardThresh;
+
+    [SerializeField] private UnityEvent resetMenuEvent;
 
     [Serializable] private class weightedEntry
     {
         public float[] weights = new float[3];
-        public turnType type;
     }
 
     [SerializeField] private weightedEntry[] weights;
@@ -60,57 +70,52 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentIngs = new List<IngredientQuantityData>();
-        setMenu();
+        resetMenu();
         NewTurn();
     }
 
     // Update is called once per frame
     void Update()
     {
-        DifficultySetting = difficultySetting;
-
+        DifficultyDisplay = difficultySetting;
+         
         if(Input.GetKeyDown("space"))
         {
+            checkMenuReset();
             NewTurn();
         }
     }
 
-    public static void upDiff()
+    private void updateDiffMultiplier()
     {
-        difficultySetting++;
-        if (difficultySetting > diff.HARD)
-        {
-            difficultySetting = diff.HARD;
-        }
+        diffMultiplier = ((float)difficultySetting + 1 )/ ((float)diff.HARD + 1);
+        //Debug.Log("DIFF MULTIPLIER = " + diffMultiplier + ", DIFF MULT WITH CONST = " + diffMultiplier*diffMultConst);
     }
 
-    public static void downDiff()
+    public void changeDiff(int i)
     {
-        difficultySetting--;
+        Debug.Log("DiffChange CALLED");
+        difficultySetting += i;
         if (difficultySetting < diff.EASY)
         {
             difficultySetting = diff.EASY;
+        } else if (difficultySetting > diff.HARD)
+        {
+            difficultySetting = diff.HARD;
         }
-    }    
+        resetMenuEvent.Invoke();
+    }
+
     void NewTurn()
     {
-        turnType turn1 = weightedTurnChoice();
-        Debug.Log(turn1);
-        switch(turn1)
-        //switch(weightedTurnChoice())
+        updateDiffMultiplier();
+
+        if(Random.value < 0.5f)
         {
-            case turnType.RANDOM:
-                RandomOrder();
-                //Debug.Log("RANDOM ORDER");
-                break;
-            case turnType.MENU:
-                MenuItemOrder();
-                //Debug.Log("MENU ITEM ORDER");
-                break;
-            case turnType.PERSON:
-                //Debug.Log("PERSONALITY ORDER");
-                MenuItemOrder();
-                break;  
+            RandomOrder();
+        } else
+        {
+            MenuItemOrder();
         }
     }
 
@@ -118,51 +123,33 @@ public class GameManager : MonoBehaviour
     {
         IngredientQuantityData result = new IngredientQuantityData();
         Ingredient ing = new Ingredient();
+        bool diffCheck=false;
+        bool contains = false;
         do
         {
             ing = ings[Random.Range(0, ings.Length)];
+            contains = containsIng(ing);
+            diffCheck = (int) ing.difficulty > (int) difficultySetting;
         } 
-        while (ing.difficulty > difficultySetting && returnDiffThresh(ing)<Random.value);
+        while (diffCheck || contains);
         result.ingredient = ing;
         result.quantity = Random.Range(1, (int) difficultySetting + 2);
         //Debug.Log("added ... " + result.ToString());
         return result;
     }
 
-
-    private float returnDiffThresh(Ingredient ing)
+    private bool containsIng(Ingredient ingCheck)
     {
-        switch(ing.difficulty)
+        bool result = false;
+        foreach(IngredientQuantityData ingQuant in currentIngs)
         {
-            case diff.EASY:
-                return 1;
-            case diff.MEDIUM:
-                return mediumThresh;
-            case diff.HARD:
-                return hardThresh;
-            default:
-                return 1;
+            if (ingQuant.ingredient.Equals(ingCheck))
+            {
+                result = true;
+            }
         }
-    }
 
-    private float returnDiffThresh(diff diff)
-    {
-        switch (diff)
-        {
-            case diff.EASY:
-                return 1;
-            case diff.MEDIUM:
-                return mediumThresh;
-            case diff.HARD:
-                return hardThresh;
-            default:
-                return 1;
-        }
-    }
-
-    private bool randomChecker()
-    {
-        return Random.Range(0.0f, 1.0f) > 1;
+        return result;
     }
 
     private turnType weightedTurnChoice()
@@ -198,9 +185,14 @@ public class GameManager : MonoBehaviour
         currentIngs.Clear();
         currentIngs.Add(addRandomIng(ingredients.teas));
         currentIngs.Add(addRandomIng(ingredients.toppings));
-        if(Random.value < ((float)difficultySetting)/((float)diff.HARD))
+        if(Random.value < diffMultiplier*diffMultConst)
         {
             currentIngs.Add(addRandomIng(ingredients.toppings));
+
+            if (Random.value < 0.5f && difficultySetting > diff.MEDIUM)
+            {
+                currentIngs.Add(addRandomIng(ingredients.toppings));
+            }
         }
 
         clientManager.createRandomOrderChar(currentIngs.ToArray());
@@ -211,17 +203,31 @@ public class GameManager : MonoBehaviour
     private void MenuItemOrder()
     {
         currentIngs.Clear();
-        MenuItem order = menuManager.getRandomMenuItem();
+        MenuItem order = MenuManager.instance.getRandomMenuItem();
         currentIngs = order.ingredientQuantities.ToList<IngredientQuantityData>();
         clientManager.createNamedOrderChar(order);
         //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], order);
     }
 
 
-    private void setMenu()
+    public void resetMenu()
     {
-        menuManager.newMenu(difficultySetting);
+        resetMenuEvent.Invoke();
     }
+
+    private void checkMenuReset()
+    {
+        orderCounter++;
+        if(orderCounter>=ordersNumToMenuReset/Mathf.Sqrt(diffMultiplier))
+        {
+            orderCounter = 0;
+            Debug.Log("RESET MENU!");
+            resetMenu();
+        }
+    }
+
+
+
 
 
     //Deprecati
@@ -258,17 +264,5 @@ public class GameManager : MonoBehaviour
     */
 
     //FUNZIONI PER ORDER CHECKER
-
-    private void FillArrays(ref int[] array1, ref int[] array2)
-    {
-        int maxLength = Math.Max(array1.Length, array2.Length);
-
-        Array.Resize(ref array1, maxLength);
-        Array.Resize(ref array2, maxLength);
-
-        // Fill empty spaces with zeroes using Array.Clear()
-        Array.Clear(array1, array1.Length, maxLength - array1.Length);
-        Array.Clear(array2, array2.Length, maxLength - array2.Length);
-    }
 
 }

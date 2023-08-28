@@ -1,5 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8801446221680402683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OST/MainMenu
+  m_EditorClassIdentifier: 
+  Name: MainMenu
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2874993164
+    data2: 152340591
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-7740175072634192742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,6 +49,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 4265765686185650919}
+  - {fileID: 4488600746349044290}
+  - {fileID: -8801446221680402683}
   MinDistance: 1
   MaxDistance: 20
   Length: 58500
@@ -43,10 +69,10 @@ MonoBehaviour:
   Path: ../FMOD_BubbleTea/BubbleTea_Project/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638284794168324502
+  lastModified: 638287368330920343
   FileSizes:
   - Name: Desktop
-    Value: 5592512
+    Value: 7195040
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -71,7 +97,7 @@ MonoBehaviour:
   - {fileID: -3397881925130740181}
   StringsBanks:
   - {fileID: 8179969808644010851}
-  cacheTime: 638284794168344504
+  cacheTime: 638287368330940357
   cacheVersion: 131605
 --- !u!114 &1193497136909750793
 MonoBehaviour:
@@ -124,6 +150,30 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &4488600746349044290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/OST/Pause
+  m_EditorClassIdentifier: 
+  Name: Pause
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 990695267
+    data2: 99094485
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8179969808644010851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,8 +189,8 @@ MonoBehaviour:
   Path: ../FMOD_BubbleTea/BubbleTea_Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638284794168344504
+  lastModified: 638287368330940357
   FileSizes:
   - Name: Desktop
-    Value: 854
+    Value: 942
   Exists: 1
