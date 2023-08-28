@@ -4,79 +4,104 @@ using UnityEngine;
 
 public class OrderChecker : MonoBehaviour
 {
-    private int currentOrderNo;
-    private int sentOrderNo;
-    public int SentOrderNo { get=>sentOrderNo; set =>sentOrderNo=value; }
-    public int CurrentOrderNo { get => currentOrderNo; set => currentOrderNo = value; }
+    public static OrderChecker instance;
 
-    private int[] IntToIntArray(int num)
+    private List<IngredientQuantityData> currentOrder;
+    private List<IngredientQuantityData> playerOrder;
+
+    public List<IngredientQuantityData> CurrentOrder { get => currentOrder; set => currentOrder = value; }
+    public List<IngredientQuantityData> PlayerOrder { get => playerOrder; set => playerOrder = value; }
+
+    private ScoreManager scoreManager;
+
+    [SerializeField] private float timeBonusMult;
+    private float extraTime;
+    private int moves;
+    private float timeTook;
+
+    private int minMoves;
+    private float minTime;
+
+    private int maxMoves;
+    private float maxTime;
+    [SerializeField] private int starScoreMultiplier;
+    [SerializeField][Range(0.1f, 1.0f)] private float minTolerance;
+    [SerializeField][Range(0.1f, 1.0f)] private float maxTolerance;
+    [SerializeField] private int maxSeconds;
+    private int totOrderScore;
+    private int playerOrderScore;
+
+    private void Awake()
     {
-        if (num == 0)
-            return new int[1] { 0 };
-
-        List<int> digits = new List<int>();
-
-        for (; num != 0; num /= 10)
-            digits.Add(num % 10);
-
-        int[] array = digits.ToArray();
-        System.Array.Reverse(array);
-
-        return array;
+        if(instance==null)
+        {
+            instance = this;
+        } else if (this != instance)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void Start()
+    {
+        this.scoreManager = ScoreManager.instance;
+    }
+    private void setTotScore()
+    {
+        if(currentOrder!=null)
+        {
+            totOrderScore = getTotScore(currentOrder);
+        }
     }
 
-    /*
-    private int[] FillArray(int[] current, int[] sent)
+    private void setPlayerOrderScore()
     {
-        int sentLength = sent.Length;
-        int currentLength = current.Length;
-
-        if(sent.Length == current.Length)
+        if(playerOrder!=null)
         {
-            return current;
-        }
-        else if (sent.Length<current.Length)
-        {
-            
+            playerOrderScore = getTotScore(playerOrder);   
         }
     }
-    */
-
-    private int checkIngredients(IngredientQuantityData[] clientOrder, IngredientQuantityData[] playerOrder)
+    private void getMoves()
     {
-        int totScore = getTotScore(clientOrder);
-
-        if(clientOrder.Length == playerOrder.Length)
-        {
-            //Un punto?
-            return totScore;
-        }
-        else
-        {
-            List<IngredientQuantityData> orderList = new List<IngredientQuantityData>(clientOrder);
-
-            foreach(IngredientQuantityData ing in playerOrder)
-            {
-                if(orderList.Contains(ing))
-                {
-                    IngredientQuantityData currentIng = orderList[orderList.IndexOf(ing)];
-                    currentIng.quantity = Mathf.Abs(currentIng.quantity - ing.quantity);
-                    if(currentIng.quantity==0)
-                    {
-                        //Altro punto 
-                        orderList.Remove(currentIng);
-                    }
-                }
-            }
-            
-            return totScore - getTotScore(orderList.ToArray()); 
-
-        }
-
-  
+        minMoves = totOrderScore + (int)(totOrderScore * minTolerance);
+        maxMoves = (minMoves * 5) + (int) ((minMoves*5) * maxTolerance);       
     }
 
-    private int getTotScore(IngredientQuantityData[]ings)
+    private void getTimes()
+    {
+        minTime = minMoves * maxSeconds;
+        maxTime = maxMoves * maxSeconds;
+    }
+
+    private void setInfo(int moves, float timeTook)
+    {
+        this.moves = moves;
+        this.timeTook = timeTook;
+    }
+
+    private void checkScore()
+    {
+        extraTime = 0;
+        setTotScore();
+        getMoves();
+        getTimes();
+        checkPlayerOrder();
+        float totScore = minMoves + minTime;
+        float maxScore = maxMoves + maxTime + totOrderScore;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime) + orderAccuracyMalus();
+
+        int starScore = ((int)Mathf.Floor((totScore / maxScore) * 5));
+        Debug.Log("StarScore = " + starScore);
+
+        extraTime += (starScore + maxSeconds) * getTimeBonus();
+        scoreManager.updateStarsAverage(starScore);
+    }
+
+    private int orderAccuracyMalus()
+    {
+        return getTotScore(currentOrder) - getTotScore(playerOrder);
+    }
+
+    private int getTotScore(List<IngredientQuantityData> ings)
     {
         int result = 0;
 
@@ -89,4 +114,28 @@ public class OrderChecker : MonoBehaviour
         return result;
     }
 
+    private void checkPlayerOrder()
+    {
+        if(playerOrder!=null && currentOrder!=null)
+        {
+            foreach(IngredientQuantityData ing in playerOrder)
+            {
+                if(!currentOrder.Contains(ing))
+                {
+                    playerOrder.Remove(ing);
+                    extraTime += 0.35f * getTimeBonus() * ((float) ing.ingredient.difficulty + 1);
+                }
+            }
+        }
+    }
+
+    public void setCurrentOrder(List<IngredientQuantityData> ings)
+    {
+        this.currentOrder = ings;
+    }
+
+    private float getTimeBonus()
+    {
+        return (GameManager.instance.DiffMultiplier*-1)+1;
+    }
 }

@@ -38,7 +38,10 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveCamera();
+        if(transform.position!=targetPos.position)
+        {
+            MoveCamera();
+        }
     }
 
     public void MoveCamera()

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
 
+
     [SerializeField] private AllIngredients ingredients;
     [SerializeField] private MenuManager menuManager;
     [SerializeField] private ClientManager clientManager;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     //public static int OrderCounter { get; set; }
     [SerializeField] private int ordersNumToMenuReset = 5;
     [SerializeField] private float diffMultiplier;
+    [HideInInspector] public float DiffMultiplier { get => diffMultiplier; }
     [SerializeField][Range(0.2f, 1.0f)] private float diffMultConst;
 
     //FOR RANDOM CHECKER
@@ -94,16 +96,21 @@ public class GameManager : MonoBehaviour
 
     public void changeDiff(int i)
     {
-        Debug.Log("DiffChange CALLED");
+        bool reset = true;
         difficultySetting += i;
         if (difficultySetting < diff.EASY)
         {
             difficultySetting = diff.EASY;
+            reset = false;
         } else if (difficultySetting > diff.HARD)
         {
             difficultySetting = diff.HARD;
+            reset = false;
         }
-        resetMenuEvent.Invoke();
+        if(reset)
+        {
+            resetMenuEvent.Invoke();
+        }
     }
 
     void NewTurn()
@@ -194,7 +201,6 @@ public class GameManager : MonoBehaviour
                 currentIngs.Add(addRandomIng(ingredients.toppings));
             }
         }
-
         clientManager.createRandomOrderChar(currentIngs.ToArray());
         //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], currentIngs);
 

@@ -2578,7 +2578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upScore: 0
   downScore: 0
-  maxIncrement: 5
+  maxIncrement: 7
   scoreMultiplier:
     scoreMult: 0
     maxScoreMult: 5

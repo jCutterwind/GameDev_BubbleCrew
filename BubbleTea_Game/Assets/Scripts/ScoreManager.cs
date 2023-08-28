@@ -152,7 +152,7 @@ public class ScoreManager : MonoBehaviour
             {
                 upScore = 0;
 
-                this.downScore++;
+                this.downScore+=(int)newPoints;
                 if (downScore > maxIncrement)
                 {
                     downScore = 0;
@@ -170,7 +170,7 @@ public class ScoreManager : MonoBehaviour
             {
                 downScore = 0;
 
-                this.upScore++;
+                this.upScore+=((int)newPoints-3);
                 if (upScore > maxIncrement)
                 {
                     upScore = 0;
@@ -180,7 +180,7 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    private void updateStarsAverage(float newPoints)
+    public void updateStarsAverage(float newPoints)
     {
         this.oldStarsCounter.Enqueue(newPoints);
         this.currentStarNum = this.oldStarsCounter.getAverage();
