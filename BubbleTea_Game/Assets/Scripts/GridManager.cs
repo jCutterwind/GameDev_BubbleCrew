@@ -278,7 +278,7 @@ public class GridManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
 
-        Vector3 pos1, pos2, pos3;
+        Vector3 pos1, pos2, pos3, scala;
 
         Vector2Int[] vett = CheckMatch3();
         
@@ -289,6 +289,7 @@ public class GridManager : MonoBehaviour
             pos1 = ingredientsList[vett[0].x, vett[0].y].transform.position;
             pos2 = ingredientsList[vett[1].x, vett[1].y].transform.position;
             pos3 = ingredientsList[vett[2].x, vett[2].y].transform.position;
+            scala= ingredientsList[vett[2].x, vett[2].y].transform.localScale;
 
             ingredientsList[vett[0].x, vett[0].y].CurrentPosition = glassPosition.position;
             ingredientsList[vett[1].x, vett[1].y].CurrentPosition = glassPosition.position;
@@ -303,9 +304,15 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[0].x, vett[0].y].CurrentPosition = pos1;
             ingredientsList[vett[1].x, vett[1].y].CurrentPosition = pos2;
             ingredientsList[vett[2].x, vett[2].y].CurrentPosition = pos3;
+
+
             //// yield return new WaitForSeconds(seconds);
 
             IngredientGenerator(vett[0], vett[1], vett[2]);
+
+            ingredientsList[vett[0].x, vett[0].y].transform.localScale = Vector3.zero;
+            ingredientsList[vett[1].x, vett[1].y].transform.localScale = Vector3.zero;
+            ingredientsList[vett[2].x, vett[2].y].transform.localScale = Vector3.zero;
 
             yield return new WaitForSeconds(seconds);
 
