@@ -57,6 +57,7 @@ public class creazioneSfondo : MonoBehaviour
             //}
         }
     }
+
     private void SetupMatrici()
     {
         for (int i = 0; i < altezza; i++)
