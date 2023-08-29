@@ -10,6 +10,7 @@ public class GridCreation : MonoBehaviour
     [SerializeField] private int rows, cols;
     [SerializeField] private MiniGameIngredient miniGameIngredient;
     [SerializeField] private Ingredient[] ingredients;
+    public Ingredient[] Ingredients { set => ingredients = value; }
     private Vector2 gridSize;
     private MiniGameIngredient[,] ingredientsList;
     [SerializeField] private Transform upperLeftCorner;
@@ -35,33 +36,40 @@ public class GridCreation : MonoBehaviour
 
         height = (upperLeftCorner.transform.position.y - this.transform.position.y) *2;
         width = (upperLeftCorner.transform.position.x - this.transform.position.x) *2;
-        gridSize = new Vector2(width/(cols-1), height/(rows-1));
-        gridManager.Offset = Mathf.Abs( Mathf.Min(gridSize.x, gridSize.y))/2;
+        gridSize = new Vector3(width/(cols-1), height/(rows-1),0);
+        gridManager.Offset = Mathf.Abs(Mathf.Min(gridSize.x, gridSize.y))/2;
 
         ingredientsList= new MiniGameIngredient[rows, cols];
-        
 
-        if (miniGameIngredient != null && ingredients != null)
-        {
-            Create();
-            gridManager.IngredientsList=this.ingredientsList;
-            //gridManager.Ingredients=this.ingredients;
-        }
+        Create();
+
+        //if (miniGameIngredient != null && ingredients != null)
+        //{
+        //    Create();
+        //    gridManager.IngredientsList=this.ingredientsList;
+        //    //gridManager.Ingredients=this.ingredients;
+        //}
         
     }
-
-    private void Create()
+    
+    public void setIngredients(Ingredient[] ings )
+    {
+        this.ingredients = ings;
+    }
+    public void Create()
     {
         for(int i = 0; i < rows; i++) 
         { 
             for (int j = 0; j < cols; j++)
             {
-                ingredientsList[i, j] = Instantiate(miniGameIngredient, new Vector2(upperLeftCorner.position.x - gridSize.x * j, upperLeftCorner.position.y- gridSize.y * i), Quaternion.identity);
-                IngredientGenerator(new Vector2Int (i,j));
-                ingredientsList[i, j].name = "Ingredient #" + count;
-                count++;
+                ingredientsList[i, j] = Instantiate(miniGameIngredient, new Vector3(upperLeftCorner.position.x - gridSize.x * j, upperLeftCorner.position.y- gridSize.y * i,upperLeftCorner.position.z), Quaternion.identity);
+                //IngredientGenerator(new Vector2Int (i,j));
+                //ingredientsList[i, j].name = "Ingredient #" + count;
+                //count++;
             }
         }
+
+        gridManager.IngredientsList = this.ingredientsList;
     }
 
 
@@ -90,9 +98,10 @@ public class GridCreation : MonoBehaviour
            
             ingr = ingredients[UnityEngine.Random.Range(0, ingredients.Length)];
             valore = UnityEngine.Random.value;
-            
+
             
         }
+
         while (valore < ((float)ingr.difficulty + 1) / ((float)diff.HARD + toll));
 
         ingredientsList[vett.x, vett.y].setIngredient(ingr, vett);

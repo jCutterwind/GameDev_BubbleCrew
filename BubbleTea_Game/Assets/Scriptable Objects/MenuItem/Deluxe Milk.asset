@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Deluxe Milk
   ingredientQuantities:
   - ingredient: {fileID: 11400000, guid: ea52148be2578f3429aa54d62d7d2352, type: 2}
-    quantity: 4
+    quantity: 1
   - ingredient: {fileID: 11400000, guid: ca8967426c11105479cb35e370ab13fb, type: 2}
     quantity: 2
   - ingredient: {fileID: 11400000, guid: 1361c435e16301c4ea730e5c9ed76ece, type: 2}

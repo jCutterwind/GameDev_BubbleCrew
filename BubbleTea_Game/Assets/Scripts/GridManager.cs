@@ -18,11 +18,13 @@ public class GridManager : MonoBehaviour
     private bool hasChanged = false;
     [SerializeField] private bool isDragging=false, isChecking=false;
     private float offset;
+    [SerializeField] private float zOffset;
+
     public float Offset { set=>offset = value; }
 
 
-    private ArrayList ingredientQuantity;
-    [SerializeField] private int seconds=3;
+    private List<IngredientQuantityData> ingredientQuantity;
+    [SerializeField] private float seconds=3;
     [SerializeField] private Transform glassPosition;
 
     private int mosse = 0;
@@ -31,9 +33,8 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        ingredientQuantity= new ArrayList();
         Vector2Int[] vett;
-
+        this.ingredientQuantity = new List<IngredientQuantityData>();
         if (ingredientsList != null)
         {
 
@@ -55,7 +56,10 @@ public class GridManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
+
             if (hit.collider != null)
             {
                 ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
@@ -73,13 +77,15 @@ public class GridManager : MonoBehaviour
     public void Restart()
     {
         mosse = 0;
-        ingredientQuantity = new ArrayList();
+        ingredientQuantity = new List<IngredientQuantityData>();
     }
 
     private void BorderCheck()
     {
-        Vector2 input = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+        Vector3 input = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, zOffset));
+        //Vector2 input = Input.mousePosition;
+        //Debug.Log("BorderCheck_INPUT X = " + input.x + " ings pos x = " + (ingr1.transform.position.x + offset  ));
+        //Debug.Log("BorderCheck_INPUT Y = " + input.y + " ings pos y = " + (ingr1.transform.position.y + offset));
         if (input.x > ingr1.transform.position.x + offset)
         {
             if (ingr1.GridPosition.y + 1 < ingredientsList.GetLength(1))
@@ -93,6 +99,7 @@ public class GridManager : MonoBehaviour
             }
 
         }
+        
         else if (input.x < ingr1.transform.position.x - offset)
         {
             if (ingr1.GridPosition.y > 0)
@@ -231,7 +238,7 @@ public class GridManager : MonoBehaviour
 
     public void SendInfo()
     {
-
+        OrderChecker.instance.setInfo(this.mosse, 0, ingredientQuantity);
     }
     
    
@@ -244,7 +251,7 @@ public class GridManager : MonoBehaviour
         Vector3 pos1, pos2, pos3, scala;
 
         Vector2Int[] vett = CheckMatch3();
-        
+
         while (hasChanged)
         {
             addIngredient(ingredientsList[vett[0].x, vett[0].y].Ingredient);
@@ -263,6 +270,7 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[2].x, vett[2].y].CurrentScale = Vector3.zero;
 
             yield return new WaitForSeconds(seconds);
+
 
             ingredientsList[vett[0].x, vett[0].y].transform.position = pos1;
             ingredientsList[vett[1].x, vett[1].y].transform.position = pos2;
@@ -285,10 +293,12 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[1].x, vett[1].y].CurrentScale = scala;
             ingredientsList[vett[2].x, vett[2].y].CurrentScale = scala;
 
-
+     
             yield return new WaitForSeconds(seconds);
 
+
             vett = CheckMatch3();
+
         }
 
         isChecking = false;

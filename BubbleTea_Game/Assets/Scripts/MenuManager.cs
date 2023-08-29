@@ -105,7 +105,11 @@ public class MenuManager : MonoBehaviour
 
         if(currentMenu != null)
         {
-            item = currentMenu[Random.Range(0, currentMenu.Length)];
+            do
+            {
+                item = currentMenu[Random.Range(0, currentMenu.Length)];
+            }
+            while (Random.value < (float) ((int) (item.getDiff()+1)/((int)GameManager.instance.DifficultySetting + 2)));
             //da implementare meglio. Come si fa con la difficoltà?
         }
 

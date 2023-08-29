@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void NewTurn()
+    public void NewTurn()
     {
         updateDiffMultiplier();
 
@@ -201,6 +201,7 @@ public class GameManager : MonoBehaviour
                 currentIngs.Add(addRandomIng(ingredients.toppings));
             }
         }
+        sendIngredients();
         clientManager.createRandomOrderChar(currentIngs.ToArray());
         //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], currentIngs);
 
@@ -211,6 +212,7 @@ public class GameManager : MonoBehaviour
         currentIngs.Clear();
         MenuItem order = MenuManager.instance.getRandomMenuItem();
         currentIngs = order.ingredientQuantities.ToList<IngredientQuantityData>();
+        sendIngredients();
         clientManager.createNamedOrderChar(order);
         //client.setCharacter(characterSprites[Random.Range(0, characterSprites.Length)], order);
     }
@@ -232,7 +234,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    private void sendIngredients()
+    {
+        OrderChecker.instance.setCurrentOrder(currentIngs);
+        Ingredient[] ings = new Ingredient[6];
+        Ingredient[] allIngs = ingredients.getAllIngredients();
+        for (int i = 0; i < currentIngs.Count; i++)
+        {
+            ings[i] = currentIngs[i].ingredient;
+        }
+        for(int i=currentIngs.Count;i<6;i++)
+        {
+            Ingredient newIng;
+            do
+            {
+                newIng = allIngs[Random.Range(0, allIngs.Length)];
+            }
+            while (ings.ToList().Contains(newIng));
+            ings[i] = newIng;
+        }
+        GridCreation.Instance.Restart(ings);
+    }
 
 
 

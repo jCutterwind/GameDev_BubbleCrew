@@ -19,15 +19,15 @@ public class OrderChecker : MonoBehaviour
     private int moves;
     private float timeTook;
 
-    private int minMoves;
-    private float minTime;
-
-    private int maxMoves;
-    private float maxTime;
+    [SerializeField] private float minTime;
+    [SerializeField] private float maxTime;
+    [SerializeField] private int minMoves;
+    [SerializeField] private int maxMoves;
     [SerializeField] private int starScoreMultiplier;
     [SerializeField][Range(0.1f, 1.0f)] private float minTolerance;
-    [SerializeField][Range(0.1f, 1.0f)] private float maxTolerance;
-    [SerializeField] private int maxSeconds;
+    [SerializeField][Range(1, 4)] private int maxMult;
+    [SerializeField] private float timePerMove;
+
     private int totOrderScore;
     private int playerOrderScore;
 
@@ -63,36 +63,39 @@ public class OrderChecker : MonoBehaviour
     private void getMoves()
     {
         minMoves = totOrderScore + (int)(totOrderScore * minTolerance);
-        maxMoves = (minMoves * 5) + (int) ((minMoves*5) * maxTolerance);       
+        maxMoves = minMoves * maxMult;   
     }
 
     private void getTimes()
     {
-        minTime = minMoves * maxSeconds;
-        maxTime = maxMoves * maxSeconds;
+        minTime = minMoves * timePerMove;
+        maxTime = maxMoves * timePerMove;
     }
 
-    private void setInfo(int moves, float timeTook)
+    public void setInfo(int moves, float timeTook, List<IngredientQuantityData> playerIngs)
     {
         this.moves = moves;
         this.timeTook = timeTook;
+        this.playerOrder = playerIngs;
+        checkScore();
     }
 
     private void checkScore()
     {
         extraTime = 0;
-        setTotScore();
-        getMoves();
-        getTimes();
-        checkPlayerOrder();
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime + totOrderScore;
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime) + orderAccuracyMalus();
+        float maxScore = maxMoves + maxTime;
+        //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime;
+        float floatScore = totScore / currentScore;
+        int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 
-        int starScore = ((int)Mathf.Floor((totScore / maxScore) * 5));
-        Debug.Log("StarScore = " + starScore);
+        //int starScore = ((int)Mathf.Floor((floatScore)));
 
-        extraTime += (starScore + maxSeconds) * getTimeBonus();
+
+        Debug.Log("FloatScorw = " + floatScore + ", Current Score = " + currentScore + "StarScore = " + starScore);
+
+        extraTime += (starScore + timePerMove) * getTimeBonus();
         scoreManager.updateStarsAverage(starScore);
     }
 
@@ -118,7 +121,9 @@ public class OrderChecker : MonoBehaviour
     {
         if(playerOrder!=null && currentOrder!=null)
         {
-            foreach(IngredientQuantityData ing in playerOrder)
+            List<IngredientQuantityData> oldList = new List<IngredientQuantityData>(playerOrder);
+
+            foreach(IngredientQuantityData ing in oldList)
             {
                 if(!currentOrder.Contains(ing))
                 {
@@ -132,6 +137,10 @@ public class OrderChecker : MonoBehaviour
     public void setCurrentOrder(List<IngredientQuantityData> ings)
     {
         this.currentOrder = ings;
+        setTotScore();
+        getMoves();
+        getTimes();
+        checkPlayerOrder();
     }
 
     private float getTimeBonus()
