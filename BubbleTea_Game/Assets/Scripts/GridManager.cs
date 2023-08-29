@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -19,8 +20,6 @@ public class GridManager : MonoBehaviour
     private float offset;
     public float Offset { set=>offset = value; }
 
-    private Ingredient[] ingredients;
-    public Ingredient[] Ingredients { set=> ingredients = value; }
 
     private ArrayList ingredientQuantity;
     [SerializeField] private int seconds=3;
@@ -35,13 +34,16 @@ public class GridManager : MonoBehaviour
         ingredientQuantity= new ArrayList();
         Vector2Int[] vett;
 
-        if (ingredientsList != null && ingredients != null)
+        if (ingredientsList != null)
         {
 
             vett=CheckMatch3();
             while (hasChanged)
             {
-                IngredientGenerator(vett[0], vett[1], vett[2]);
+                GridCreation.Instance.IngredientGenerator(vett[0]);
+                GridCreation.Instance.IngredientGenerator(vett[1]);
+                GridCreation.Instance.IngredientGenerator(vett[2]);
+
                 vett=CheckMatch3();
 
             }
@@ -66,6 +68,12 @@ public class GridManager : MonoBehaviour
             BorderCheck();
         }
 
+    }
+
+    public void Restart()
+    {
+        mosse = 0;
+        ingredientQuantity = new ArrayList();
     }
 
     private void BorderCheck()
@@ -221,12 +229,11 @@ public class GridManager : MonoBehaviour
 
     }
 
-    private void IngredientGenerator(Vector2Int vec1, Vector2Int vec2, Vector2Int vec3)
+    public void SendInfo()
     {
-        ingredientsList[vec1.x, vec1.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-        ingredientsList[vec2.x, vec2.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
-        ingredientsList[vec3.x, vec3.y].setIngredient(ingredients[UnityEngine.Random.Range(0, ingredients.Length)]);
+
     }
+    
    
     
 
@@ -265,12 +272,14 @@ public class GridManager : MonoBehaviour
             ingredientsList[vett[1].x, vett[1].y].CurrentPosition = pos2;
             ingredientsList[vett[2].x, vett[2].y].CurrentPosition = pos3;
 
-            
+
 
 
             //// yield return new WaitForSeconds(seconds);
 
-            IngredientGenerator(vett[0], vett[1], vett[2]);
+            GridCreation.Instance.IngredientGenerator(vett[0]);
+            GridCreation.Instance.IngredientGenerator(vett[1]);
+            GridCreation.Instance.IngredientGenerator(vett[2]);
 
             ingredientsList[vett[0].x, vett[0].y].CurrentScale = scala;
             ingredientsList[vett[1].x, vett[1].y].CurrentScale = scala;
