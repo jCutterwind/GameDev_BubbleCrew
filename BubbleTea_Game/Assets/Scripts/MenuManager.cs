@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private FullMenu fullMenu;
     private MenuItem[] currentMenu;
     private MenuItemDisplayer[] currentDisp;
+    [SerializeField] private MenuChangeAnimation textAnim;
 
     //MenuDisplay
     [SerializeField] private RectTransform menuPanel;
@@ -30,6 +31,7 @@ public class MenuManager : MonoBehaviour
     public void newMenu()
     {
         clearMenu();
+        textAnim.startZoomAnim();
         diff difficultySetting = GameManager.instance.DifficultySetting;
         MenuItem[] result = new MenuItem[6];
         for (int i = 0; i < 6; i++)
