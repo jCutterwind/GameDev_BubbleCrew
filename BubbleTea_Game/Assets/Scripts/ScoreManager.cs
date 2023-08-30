@@ -96,6 +96,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float currentStarNum = 3.3f;
 
     [SerializeField] private float totalScore = 0;
+    public float TotalScore { get=>totalScore; }
 
 
     private void Awake()
@@ -192,7 +193,7 @@ public class ScoreManager : MonoBehaviour
     private void updateStars()
     {
         this.currentTier = (starTier)Mathf.FloorToInt(this.currentStarNum);
-        FMODController.setStar(this.currentTier);
+        //FMODController.setStar(this.currentTier);
     }
 
     public void updateMult()
