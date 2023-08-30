@@ -16,7 +16,6 @@ public class GridCreation : MonoBehaviour
     [SerializeField] private Transform upperLeftCorner;
     private float height, width;
     [SerializeField] private GridManager gridManager;
-    private int count = 1;
     [SerializeField][Range(1.1f, 1.9f)] private float toll;
 
 

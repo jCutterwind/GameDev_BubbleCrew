@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 3440
     height: 1357
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 13}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 187
+  controlID: 198
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 135
+  controlID: 139
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 186
+  controlID: 197
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_MinSize: {x: 500, y: 100}
   m_MaxSize: {x: 40480, y: 16192}
   vertical: 0
-  controlID: 185
+  controlID: 196
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 60
+  controlID: 64
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 61
+  controlID: 65
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: -160
+    m_CachedPref: 151
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
@@ -547,7 +547,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefab
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -555,16 +555,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefab
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\GitHub\GameDev_BubbleCrew\BubbleTea_Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 34}
-    m_SelectedIDs: 70670000
-    m_LastClickedID: 26480
-    m_ExpandedIDs: 000000004a6700006e67000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 84670000
+    m_LastClickedID: 26500
+    m_ExpandedIDs: 00000000626700008a67000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -592,7 +592,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004a670000
+    m_ExpandedIDs: 0000000062670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -623,18 +623,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Prefabs
-      m_OriginalName: Prefabs
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 26474
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 4}
     m_CreateAssetUtility:
@@ -644,7 +644,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 93}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 200
@@ -763,7 +763,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefab
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -771,16 +771,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefab
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\GitHub\GameDev_BubbleCrew\BubbleTea_Game
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 70670000
-    m_LastClickedID: 26480
-    m_ExpandedIDs: 000000004a6700006e67000000ca9a3b
+    m_SelectedIDs: 84670000
+    m_LastClickedID: 26500
+    m_ExpandedIDs: 00000000626700008a67000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -808,7 +808,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004a670000
+    m_ExpandedIDs: 0000000062670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -898,7 +898,8 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
-  m_ObjectsLockedBeforeSerialization: []
+  m_ObjectsLockedBeforeSerialization:
+  - {fileID: 11400000, guid: 0f3ea719be9427648993630c8b0be9a3, type: 2}
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
     m_CachedPref: -160
@@ -909,7 +910,7 @@ MonoBehaviour:
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
-    m_IsLocked: 0
+    m_IsLocked: 1
   m_PreviewWindow: {fileID: 0}
 --- !u!114 &24
 MonoBehaviour:
@@ -948,9 +949,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c0720000
-      m_LastClickedID: 29376
-      m_ExpandedIDs: a819fcfffc23fcfff224fcff1a2dffffa43bffffb23bffffa047ffff8ea4ffffa8a4ffff6ca6ffff80a6ffff8aa6ffffa0a6ffffd8b2ffff06b3ffff08b3ffff3ebbffffbcbcffffdcbcffff84bdffffc6f7ffffe8f9ffffa0670000ce670000da6f0000d2720000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 8831ffff7652ffff7852ffff2053ffff2253ffffba53ffffbc53ffff5454ffff5654ffffee54fffff054ffffc85bffffce5bffff426bffffe073ffffee73ffff0674ffff1a74ffff4274ffff5274ffff6674ffff7874ffffbefaffffccfaffffd6fafffffcfaffff5075000088750000c6750000e4750000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1343,9 +1344,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.1766195, y: -0.39489773, z: 3.1344478}
+    m_Target: {x: -2.955864, y: -0.020929694, z: 1.8407393}
     speed: 2
-    m_Value: {x: -1.1766195, y: -0.39489773, z: 3.1344478}
+    m_Value: {x: -2.955864, y: -0.020929694, z: 1.8407393}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1391,13 +1392,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.02103634, y: -0.16095659, z: 0.0034020694, w: 0.98677295}
+    m_Target: {x: -0.04487223, y: -0.5270055, z: 0.027804641, w: -0.8482834}
     speed: 2
-    m_Value: {x: 0.021035478, y: -0.16094999, z: 0.00340193, w: 0.9867325}
+    m_Value: {x: -0.04486985, y: -0.52697754, z: 0.027803166, w: -0.8482384}
   m_Size:
-    m_Target: 5.7044005
+    m_Target: 3.2573574
     speed: 2
-    m_Value: 5.7044005
+    m_Value: 3.2573574
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1415,7 +1416,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: 0.10657092, y: 0.027149117, z: -0.0029438634, w: 0.99396896}
+  m_LastSceneViewRotation: {x: 0.0048097246, y: -0.02068949, z: 0.000095594216, w: 0.999821}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
