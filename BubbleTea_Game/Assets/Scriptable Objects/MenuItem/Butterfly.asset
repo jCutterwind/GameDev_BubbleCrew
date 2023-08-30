@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb9fb5461e46bb4881e5d1eacf89f3f, type: 3}
+  m_Name: Butterfly
+  m_EditorClassIdentifier: 
+  itemName: Butterfly
+  ingredientQuantities:
+  - ingredient: {fileID: 11400000, guid: ea52148be2578f3429aa54d62d7d2352, type: 2}
+    quantity: 1
+  - ingredient: {fileID: 11400000, guid: 79e8b9ebeddb061439a3922a344ec856, type: 2}
+    quantity: 1
+  - ingredient: {fileID: 11400000, guid: ca8967426c11105479cb35e370ab13fb, type: 2}
+    quantity: 1

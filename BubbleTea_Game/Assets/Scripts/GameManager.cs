@@ -140,7 +140,16 @@ public class GameManager : MonoBehaviour
         } 
         while (diffCheck || contains);
         result.ingredient = ing;
-        result.quantity = Random.Range(1, (int) difficultySetting + 2);
+        int quantity = 1;
+        if(Random.value>diffMultiplier)
+        {
+            quantity = 1;
+        }
+        else
+        {
+            quantity = Random.Range(1, (int)difficultySetting + 3);
+        }
+        result.quantity = quantity;
         //Debug.Log("added ... " + result.ToString());
         return result;
     }

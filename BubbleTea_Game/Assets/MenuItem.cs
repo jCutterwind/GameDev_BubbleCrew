@@ -10,20 +10,20 @@ public class MenuItem : ScriptableObject
     {
         diff startDiff = diff.EASY;
         int quantityCounter = 0;
-        foreach(IngredientQuantityData quant in ingredientQuantities)
+        int diffCounter = 0;
+        foreach (IngredientQuantityData quant in ingredientQuantities)
         {
-            if(quant.ingredient.difficulty > startDiff)
-            {
-                startDiff = quant.ingredient.difficulty;
-                quantityCounter += quant.quantity;
-            }
+            quantityCounter += quant.quantity;
+            diffCounter += (int)quant.ingredient.difficulty;
         }
-        startDiff += (quantityCounter/4);  
-        if(startDiff>diff.HARD)
+        startDiff = (diff)(diffCounter / ingredientQuantities.Length);
+        startDiff += (quantityCounter / 4);
+        if (startDiff > diff.HARD)
         {
             startDiff = diff.HARD;
         }
+        Debug.Log("ITEM DIFF = " + startDiff);
         return startDiff;
     }
- 
+
 }

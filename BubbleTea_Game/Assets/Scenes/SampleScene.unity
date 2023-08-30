@@ -2214,9 +2214,13 @@ PrefabInstance:
       propertyPath: offsetMult
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4966594253045242210, guid: f71429ff73b09144f8713516e178b028, type: 3}
+    - target: {fileID: 3903780337786971639, guid: f71429ff73b09144f8713516e178b028, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966594253045242210, guid: f71429ff73b09144f8713516e178b028, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5364779128037780295, guid: f71429ff73b09144f8713516e178b028, type: 3}
       propertyPath: m_LocalPosition.x
