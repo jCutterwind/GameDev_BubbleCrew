@@ -84,9 +84,9 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime;
+        float maxScore = maxMoves + maxTime + getTotScore(currentOrder) * maxMoves;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + orderAccuracyMalus() * maxMoves;
         float floatScore = totScore / currentScore;
         int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 

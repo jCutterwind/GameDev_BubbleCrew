@@ -133,7 +133,8 @@ MonoBehaviour:
   scaleMult: 0.637
   gridPosition: {x: 0, y: 0}
   spriteRenderer: {fileID: 8930474951820273720}
-  speed: 10
+  speed: 12
+  offset: 0.01
 --- !u!61 &607129315107062157
 BoxCollider2D:
   m_ObjectHideFlags: 0

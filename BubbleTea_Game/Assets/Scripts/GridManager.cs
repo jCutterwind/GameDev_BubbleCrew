@@ -33,23 +33,23 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        Vector2Int[] vett;
-        this.ingredientQuantity = new List<IngredientQuantityData>();
-        if (ingredientsList != null)
-        {
+        //Vector2Int[] vett;
+        //this.ingredientQuantity = new List<IngredientQuantityData>();
+        //if (ingredientsList != null)
+        //{
 
-            vett=CheckMatch3();
-            while (hasChanged)
-            {
-                GridCreation.Instance.IngredientGenerator(vett[0]);
-                GridCreation.Instance.IngredientGenerator(vett[1]);
-                GridCreation.Instance.IngredientGenerator(vett[2]);
+        //    vett=CheckMatch3();
+        //    while (hasChanged)
+        //    {
+        //        GridCreation.Instance.IngredientGenerator(vett[0]);
+        //        GridCreation.Instance.IngredientGenerator(vett[1]);
+        //        GridCreation.Instance.IngredientGenerator(vett[2]);
 
-                vett=CheckMatch3();
+        //        vett=CheckMatch3();
 
-            }
-        }
-
+        //    }
+        //}
+        Restart();
     }
 
     void Update()
@@ -78,6 +78,21 @@ public class GridManager : MonoBehaviour
     {
         mosse = 0;
         ingredientQuantity = new List<IngredientQuantityData>();
+        Vector2Int[] vett;
+        if (ingredientsList != null)
+        {
+
+            vett = CheckMatch3();
+            while (hasChanged)
+            {
+                GridCreation.Instance.IngredientGenerator(vett[0]);
+                GridCreation.Instance.IngredientGenerator(vett[1]);
+                GridCreation.Instance.IngredientGenerator(vett[2]);
+
+                vett = CheckMatch3();
+
+            }
+        }
     }
 
     private void BorderCheck()

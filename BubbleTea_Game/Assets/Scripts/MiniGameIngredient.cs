@@ -11,7 +11,7 @@ public class MiniGameIngredient : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     private Vector3 currentPosition, currentScale;
     [SerializeField] private float speed;
-
+    [SerializeField] private float offset;
     //[SerializeField] private float offset;
     
     public Ingredient Ingredient { get => ingredient; }
@@ -48,23 +48,23 @@ public class MiniGameIngredient : MonoBehaviour
 
     private void Update()
     {
-        if (this.currentPosition != this.transform.position)
-        {
-            this.transform.position = Vector3.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
-        }
+        //if (this.currentPosition != this.transform.position)
+        //{
+        //    this.transform.position = Vector3.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
+        //}
         if (this.currentScale != this.transform.localScale)
         {
             this.transform.localScale = Vector3.Lerp(this.transform.localScale, this.currentScale, Time.deltaTime * speed);
         }
 
-        //if (Vector2.Distance(currentPosition, transform.position) > offset)
-        //{
-        //    this.transform.position = Vector2.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
-        //}
-        //else
-        //{
-        //    this.transform.position = currentPosition;
-        //}
+        if (Vector3.Distance(currentPosition, transform.position) > offset)
+        {
+            this.transform.position = Vector3.Lerp(this.transform.position, this.currentPosition, Time.deltaTime * speed);
+        }
+        else
+        {
+            this.transform.position = currentPosition;
+        }
         //if (Vector2.Distance(currentScale, transform.localScale) > offset)
         //{
         //    this.transform.localScale = Vector2.Lerp(this.transform.localScale, this.currentScale, Time.deltaTime * speed);
