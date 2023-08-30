@@ -43,15 +43,16 @@ public class GridCreation : MonoBehaviour
 
         Create();
 
+
         //if (miniGameIngredient != null && ingredients != null)
         //{
-        //    Create();
-        //    gridManager.IngredientsList=this.ingredientsList;
+        //    //Create();
+        //    gridManager.IngredientsList = this.ingredientsList;
         //    //gridManager.Ingredients=this.ingredients;
         //}
-        
+
     }
-    
+
     public void setIngredients(Ingredient[] ings )
     {
         this.ingredients = ings;
