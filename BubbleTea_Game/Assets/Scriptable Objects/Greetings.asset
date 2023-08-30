@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94eef2fbf9f7bd6479dd1f4f3b8f8c71, type: 3}
+  m_Name: Greetings
+  m_EditorClassIdentifier: 
+  dialogues:
+  - text: Buongiorno, vorrei un {0} per favore
+  - text: 'Ciao! Un {0} grazie '
+  - text: Hey amico, ne avete di {0} ancora?
+  - text: Un {0}!
+  - text: Dammi un {0}

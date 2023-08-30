@@ -1,15 +1,23 @@
 using UnityEngine;
 
+public enum type
+{
+    TEA, TOPPING
+}
+
+
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Ingredient", order = 1)]
+
 public class Ingredient : ScriptableObject
 {
-    public string type;
+    public string ingredient;
+    public type type;
+    public diff difficulty;
     public Sprite icon;
     public int ID;
-    public int quantity = 1;
     public override string ToString()
     {
-        return "Ingredient type = " + type + ", quantity = " + quantity + ", ID = " + ID + ".";
+        return "Ingredient type = " + ingredient + ", ID = " + ID + ".";
             
     }
 }
