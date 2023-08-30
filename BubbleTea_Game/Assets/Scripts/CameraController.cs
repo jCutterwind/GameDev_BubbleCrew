@@ -87,6 +87,14 @@ public class CameraController : MonoBehaviour
 
     }
 
+    public void ReturnCenter()
+    {
+        targetPos = centerPos;
+        leftButton.interactable = false;
+        rightButton.interactable = false;
+        camPos = CamPos.CENTER;
+    }
+
 
 
 
