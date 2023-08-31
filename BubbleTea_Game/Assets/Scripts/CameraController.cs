@@ -10,7 +10,7 @@ public enum CamPos
 public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
-    // Start is called before the first frame update
+   
     [SerializeField] private float moveSpeed;
     [SerializeField] Button leftButton, rightButton;
     private Transform targetPos;
