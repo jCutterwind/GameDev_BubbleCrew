@@ -7,6 +7,10 @@ public class FMODController : MonoBehaviour
     [SerializeField] private static starTier currentStars = starTier.ThreeStars;
     [SerializeField][Range(1,5)]private float currentMusicSlider = 3;
     [SerializeField] private float transitionSpeed;
+    private float currentMenuSlider = 1;
+    private float currentPeopleSlider;
+    private int isMenu = 1;
+    [SerializeField] private float tolerance;
 
     private FMOD.Studio.EventInstance eventInstance;
 
@@ -19,6 +23,12 @@ public class FMODController : MonoBehaviour
         {
             instance = this;
         }
+        else if(instance!=this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
     }
     void Start()
     {
@@ -30,16 +40,39 @@ public class FMODController : MonoBehaviour
     {
         updateMusicSlider();
         eventInstance.setParameterByName("STARS", currentMusicSlider);
+        eventInstance.setParameterByName("MainMenu", currentMenuSlider);
     }
 
-    public static void setStar(starTier star)
+    public void setStar(starTier star)
     {
         currentStars = star;
     }
 
+    public void setMenu(int isMenu)
+    {
+        this.isMenu = isMenu;
+    }
+
     private void updateMusicSlider()
     {
-        currentMusicSlider = Mathf.LerpAngle(currentMusicSlider, (float) currentStars, Time.deltaTime * transitionSpeed);
+        if(Mathf.Abs(currentMusicSlider-(float)currentStars)>tolerance)
+        {
+            currentMusicSlider = Mathf.LerpAngle(currentMusicSlider, (float)currentStars, Time.deltaTime * transitionSpeed);
+        }
+        else
+        {
+            currentMusicSlider = (float)currentStars;
+        }
+
+        if(Mathf.Abs(currentMenuSlider - isMenu) > tolerance)
+        {
+            currentMenuSlider = Mathf.LerpAngle(currentMenuSlider, isMenu, Time.deltaTime * transitionSpeed);
+        }
+        else
+        {
+            currentMenuSlider = isMenu;
+        }
+
     }
 }
 

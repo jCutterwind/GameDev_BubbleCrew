@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void NewTurn()
     {
+        checkMenuReset();
         updateDiffMultiplier();
 
         if(Random.value < 0.5f)
