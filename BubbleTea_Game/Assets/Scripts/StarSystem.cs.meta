@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d7314abcfb0d2194fb34cd1800305075
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - starFilledSprite: {fileID: 21300000, guid: d5d7ce41751e63047b9544f50b17a10c, type: 3}
+  - starEmptySprite: {fileID: 21300000, guid: 8398307e87fc7d54dbdf945b8cf57a8d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
