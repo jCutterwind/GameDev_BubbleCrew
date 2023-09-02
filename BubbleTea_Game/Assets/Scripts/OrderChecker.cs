@@ -28,9 +28,10 @@ public class OrderChecker : MonoBehaviour
     [SerializeField] private int orderMalus;
 
     [SerializeField] private int starScoreMultiplier;
-    [SerializeField][Range(0.1f, 1.0f)] private float minTolerance;
-    [SerializeField][Range(1, 4)] private int maxMult;
+    [SerializeField][Range(0.1f, 2.0f)] private float minTolerance;
+    [SerializeField][Range(1, 6)] private int maxMult;
     [SerializeField] private float timePerMove;
+
 
     private int totOrderScore;
     private int playerOrderScore;
@@ -99,16 +100,18 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves * 3 + maxTime;
+        float maxScore = maxMoves + maxTime;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + (1-(getPlayerOrderScore()/totOrderScore)) * maxMoves * 2;
-        float floatScore = totScore / currentScore;
-        int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
+        float malus = (1 - (getPlayerOrderScore() / totOrderScore));
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime) + malus * maxMoves * 2;
+        float floatScore = 1 - Mathf.Clamp(((currentScore - totScore) / (maxScore - totScore)), 0, 1);
+        //floatScore = Mathf.Sqrt(floatScore);
+        int starScore = (int)Mathf.Clamp((floatScore * 5)+1, 1, 5);
 
         //int starScore = ((int)Mathf.Floor((floatScore)));
 
-        Debug.Log("Order Correctness Multiplier = " + (1 - (getPlayerOrderScore() / totOrderScore)) * maxMoves * 2);
-        Debug.Log("FloatScorw = " + floatScore + ", Current Score = " + currentScore + "StarScore = " + starScore);
+        Debug.Log("Malus = " + malus + "totScore = " + totScore + ", maxScore = " + maxScore + ", CurrentScore = " + currentScore + ", FloatScorw = " + floatScore);
+        //Debug.Log("FloatScorw = " + floatScore + ", Current Score = " + currentScore + "StarScore = " + starScore);
 
         extraTime += (starScore + timePerMove) * getTimeBonus();
         scoreManager.updateStarsAverage(starScore);

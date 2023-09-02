@@ -4046,9 +4046,9 @@ MonoBehaviour:
   maxMoves: 0
   orderMalus: 0
   starScoreMultiplier: 0
-  minTolerance: 0
+  minTolerance: 0.188
   maxMult: 3
-  timePerMove: 1
+  timePerMove: 2.5
 --- !u!224 &1162524727 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8746456795201785397, guid: 1c08f494cc9a2ad4b9deed8baf965d1d, type: 3}
@@ -5682,6 +5682,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f0751e1199cc88149acefdc9d1891423, type: 3}
   - {fileID: 21300000, guid: 1b49a0362768aa342965210a7112092f, type: 3}
   - {fileID: 21300000, guid: a53c211443474f44391b4166aa21963b, type: 3}
+  - {fileID: 21300000, guid: 757dc20a6e8586f4883de9a8a1454457, type: 3}
   clientDisp: {fileID: 1280897738}
   greetings: {fileID: 11400000, guid: e32200aebb793a34e9c28da13bc238eb, type: 2}
 --- !u!224 &1630331888 stripped
@@ -6485,7 +6486,7 @@ MonoBehaviour:
   starSys: {fileID: 1257589092}
   upScore: 0
   downScore: 0
-  maxIncrement: 7
+  maxIncrement: 4
   scoreMultiplier: 1
   currentTier: 0
   scoreMult: 0

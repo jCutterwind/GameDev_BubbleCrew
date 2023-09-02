@@ -114,7 +114,7 @@ public class ScoreManager : MonoBehaviour
 
     public void updateDiff(float newPoints)
     {
-        if(newPoints<=3)
+        if(newPoints<3)
         {
             if (upScore > 0)
             {
