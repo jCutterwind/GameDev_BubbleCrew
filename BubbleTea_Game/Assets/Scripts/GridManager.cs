@@ -27,6 +27,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float seconds=3;
     [SerializeField] private Transform glassPosition;
 
+    private bool isTimer = false;
+    private float time = 0;
+
     private int mosse = 0;
     
 
@@ -64,12 +67,18 @@ public class GridManager : MonoBehaviour
             {
                 ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
                 isDragging = true;
+                isTimer = true;
             }
         }
 
         if (isDragging && ingr1 != null && !isChecking)
         {
             BorderCheck();
+        }
+
+        if(isTimer)
+        {
+            time += Time.deltaTime; 
         }
 
     }
@@ -253,7 +262,9 @@ public class GridManager : MonoBehaviour
 
     public void SendInfo()
     {
-        OrderChecker.instance.setInfo(this.mosse, 0, ingredientQuantity);
+        OrderChecker.instance.setInfo(this.mosse, (int)time%60, ingredientQuantity);
+        isTimer = false;
+        time = 0;
     }
     
    

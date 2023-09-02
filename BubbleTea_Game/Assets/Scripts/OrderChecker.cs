@@ -64,7 +64,17 @@ public class OrderChecker : MonoBehaviour
     }
     private void getMoves()
     {
-        minMoves = totOrderScore + (int)(totOrderScore * minTolerance);
+        int diffMult = 1;
+
+        if (currentOrder!=null)
+        {
+            foreach(IngredientQuantityData ing in currentOrder)
+            {
+                diffMult += (int) ing.ingredient.difficulty;
+            }
+        }
+
+        minMoves = totOrderScore + (int)(totOrderScore * minTolerance * diffMult);
         maxMoves = minMoves * maxMult;   
     }
 
@@ -129,7 +139,7 @@ public class OrderChecker : MonoBehaviour
             {
                 foreach(IngredientQuantityData ing2 in currentOrder)
                 {
-                    if (ing1.ingredient.name.Equals(ing2.ingredient.name))
+                    if (ing1.ingredient.ingredient == ing2.ingredient.ingredient)
                     {
                         int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
                         counter += newMesure;

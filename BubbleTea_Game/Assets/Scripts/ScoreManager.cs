@@ -48,46 +48,13 @@ public enum starTier
 }
 
 
-[Serializable]
-public class ScoreMultiplier
-{
-    [SerializeField] private int scoreMult;
-    public int ScoreMult => scoreMult;
-    [SerializeField] private int maxScoreMult;
-    [SerializeField] private int maxScoreCounter;
-    [SerializeField] private int scoreMultCounter;
-
-    public void upMult()
-    {
-        scoreMultCounter++;
-
-        if (scoreMultCounter > maxScoreCounter)
-        {
-            if (scoreMult <= maxScoreMult)
-            {
-                scoreMult++;
-                scoreMultCounter = 0;
-            }
-        }
-    }
-
-    public void resetMult()
-    {
-        scoreMult = 0;
-    }
-}
-
-
-
-
-
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     [SerializeField] private int upScore = 0;
     [SerializeField] private int downScore = 0;
     [SerializeField] private int maxIncrement = 5;
-    [SerializeField] private ScoreMultiplier scoreMultiplier;
+    [SerializeField] private int scoreMultiplier = 1;
     [SerializeField] private starTier currentTier;
 
     [SerializeField] private int scoreMult = 0;
@@ -196,17 +163,6 @@ public class ScoreManager : MonoBehaviour
         FMODController.instance.setStar(this.currentTier);
     }
 
-    public void updateMult()
-    {
-        if (this.currentTier == starTier.FiveStars)
-        {
-            scoreMultiplier.upMult();
-        }
-        else
-        {
-            scoreMultiplier.resetMult();
-        }
-    }
 
     public void updateScore(float newPoints)
     {
