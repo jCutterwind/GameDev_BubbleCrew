@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &144903155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+  m_PrefabInstance: {fileID: 318753444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &318753444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,19 +138,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1784293460}
+      objectReference: {fileID: 318753449}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: zoomInAnim
+      value: SceneChange
       objectReference: {fileID: 0}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LoadingScreen, Assembly-CSharp
+      value: SceneChangeButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_Name
@@ -242,13 +251,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 318753449}
   m_SourcePrefab: {fileID: 100100000, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
 --- !u!224 &318753445 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8038345641341466294, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
   m_PrefabInstance: {fileID: 318753444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &318753449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144903155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a20317c8cb1d540b9d0e769b7a6366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &329849417
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,19 +360,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1069816338}
+      objectReference: {fileID: 2008572578}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: startGame
+      value: SceneChange
       objectReference: {fileID: 0}
     - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneChangeManager, Assembly-CSharp
+      value: SceneChangeButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1654416106914631252, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
       propertyPath: m_Name
@@ -447,7 +475,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2008572578}
   m_SourcePrefab: {fileID: 100100000, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
 --- !u!224 &352573207 stripped
 RectTransform:
@@ -1518,6 +1549,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61819619aebbc8d44b67c24779c60fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animSpeed: 0.7
+  animSpeed: 1
   isAnim: 0
   scalingObject: {fileID: 1674481107}
+--- !u!1 &2008572574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4018236146634089206, guid: 9605921368e69654c8e72d0e4f8bc4a6, type: 3}
+  m_PrefabInstance: {fileID: 352573206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2008572578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008572574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a20317c8cb1d540b9d0e769b7a6366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

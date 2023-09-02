@@ -5,12 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangeManager : MonoBehaviour
 {
+
+    public static SceneChangeManager instance;
     private FMODController fmodCont;
     [SerializeField] LoadingScreen loadScreen;
     private bool isLoading = false;
 
     private void Awake()
     {
+        if(instance==null)
+        {
+            instance = this;
+        } else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         DontDestroyOnLoad(gameObject);
         loadScreen.gameObject.SetActive(false);
     }
@@ -25,12 +35,21 @@ public class SceneChangeManager : MonoBehaviour
         if(!isLoading)
         {
             isLoading = true;
-            StartCoroutine(changeScene(1));
+            StartCoroutine(changeSceneCoroutine(1));
             FMODController.instance.setMenu(0);
         }
     }
 
-    private IEnumerator changeScene(int i)
+    public void changeScene(int i)
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            StartCoroutine(changeSceneCoroutine(i));
+        }
+    }
+
+    private IEnumerator changeSceneCoroutine(int i)
     {
         loadScreen.gameObject.SetActive(true);
         loadScreen.zoomInAnim();
@@ -51,6 +70,7 @@ public class SceneChangeManager : MonoBehaviour
             yield return null;
         }
         loadScreen.gameObject.SetActive(false);
+        isLoading = false;
         yield return null;
 
     }
