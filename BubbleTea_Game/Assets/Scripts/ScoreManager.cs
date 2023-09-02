@@ -82,7 +82,7 @@ public class ScoreManager : MonoBehaviour
     {
         totalScore = 0;
         oldStarsCounter = new FixedFloatQueue(oldStarMaxNum);
-        FMODController.instance.setStar(starTier.ThreeStars);
+       // FMODController.instance.setStar(starTier.ThreeStars);
         updateStars();
     }   
 
@@ -162,7 +162,7 @@ public class ScoreManager : MonoBehaviour
     private void updateStars()
     {
         this.currentTier = (starTier)Mathf.FloorToInt(this.currentStarNum);
-        FMODController.instance.setStar(this.currentTier);
+      //  FMODController.instance.setStar(this.currentTier);
     }
 
 

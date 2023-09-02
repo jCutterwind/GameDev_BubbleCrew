@@ -245,7 +245,8 @@ public class GridManager : MonoBehaviour
                 if (element.ingredient == ingredient)
                 {
                     element.quantity++;
-                    Debug.Log("aumentato "+ element.ingredient.name + " " +  element.quantity);
+                    GridCreation.Instance.IngrCounter.Aggiorna(element);
+                    //Debug.Log("aumentato "+ element.ingredient.name + " " +  element.quantity);
                     return;
                 }
             }
@@ -255,7 +256,9 @@ public class GridManager : MonoBehaviour
             ingr.quantity = 1;
 
             ingredientQuantity.Add(ingr);
-            Debug.Log("aggiunto " + ingr.ingredient.name);
+            GridCreation.Instance.IngrCounter.Aggiorna(ingr);
+
+            //Debug.Log("aggiunto " + ingr.ingredient.name);
         }
 
     }

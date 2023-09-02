@@ -7,7 +7,7 @@ public class SceneChangeManager : MonoBehaviour
 {
 
     public static SceneChangeManager instance;
-    private FMODController fmodCont;
+    //private FMODController fmodCont;
     [SerializeField] LoadingScreen loadScreen;
     private bool isLoading = false;
 
@@ -26,7 +26,7 @@ public class SceneChangeManager : MonoBehaviour
     }
     private void Start()
     {
-        FMODController.instance.setMenu(1);
+       // FMODController.instance.setMenu(1);
 
     }
 
@@ -36,7 +36,7 @@ public class SceneChangeManager : MonoBehaviour
         {
             isLoading = true;
             StartCoroutine(changeSceneCoroutine(1));
-            FMODController.instance.setMenu(0);
+          //  FMODController.instance.setMenu(0);
         }
     }
 

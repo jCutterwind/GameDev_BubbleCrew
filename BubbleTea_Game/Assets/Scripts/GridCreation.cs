@@ -17,6 +17,8 @@ public class GridCreation : MonoBehaviour
     private float height, width;
     [SerializeField] private GridManager gridManager;
     [SerializeField][Range(1.1f, 1.9f)] private float toll;
+    [SerializeField] private IngredientCounter ingrCounter;
+    public IngredientCounter IngrCounter { get => ingrCounter; }
 
     [SerializeField] private ChangeGlassColor glass;
 
@@ -85,6 +87,8 @@ public class GridCreation : MonoBehaviour
                 IngredientGenerator(new Vector2Int(i, j));
             }
         }
+        this.ingrCounter.Ingredients = this.ingredients;
+        this.ingrCounter.Restart();
 
         gridManager.Restart();
     }
