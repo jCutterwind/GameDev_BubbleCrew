@@ -6,7 +6,7 @@ using TMPro;
 
 public class FinalPanel : MonoBehaviour
 {
-    [SerializeField] private CameraController camera;
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private TextMeshProUGUI score;
     
     private Vector3 currentScale;
@@ -36,8 +36,8 @@ public class FinalPanel : MonoBehaviour
     public void GameOver()
     {
         this.gameObject.SetActive(true);
-        //camera.ReturnCenter();
-        score.text = "Score: " + ScoreManager.instance.TotalScore;
+        cameraController.ReturnCenter();
+        score.text = "Score: " + MaxScoreCounter.instance.Score;
         
         
 

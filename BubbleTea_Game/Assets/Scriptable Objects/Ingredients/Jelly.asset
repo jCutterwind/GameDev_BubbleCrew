@@ -15,5 +15,5 @@ MonoBehaviour:
   ingredient: Jelly
   type: 1
   difficulty: 0
-  icon: {fileID: 21300000, guid: d0ed0deb787891f4c9fc18793a79f37b, type: 3}
+  icon: {fileID: 21300000, guid: 1f11f7f3373122a4bb13ddcf17b73abe, type: 3}
   ID: 100

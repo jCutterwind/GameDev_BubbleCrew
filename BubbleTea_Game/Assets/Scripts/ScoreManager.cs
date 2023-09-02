@@ -51,6 +51,7 @@ public enum starTier
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
+    [SerializeField] private StarSystem starSys;
     [SerializeField] private int upScore = 0;
     [SerializeField] private int downScore = 0;
     [SerializeField] private int maxIncrement = 5;
@@ -63,6 +64,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float currentStarNum = 3.3f;
 
     [SerializeField] private float totalScore = 0;
+
     public float TotalScore { get => totalScore; }
 
 
@@ -80,6 +82,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        totalScore = 0;
         oldStarsCounter = new FixedFloatQueue(oldStarMaxNum);
         FMODController.instance.setStar(starTier.ThreeStars);
         updateStars();
@@ -162,11 +165,13 @@ public class ScoreManager : MonoBehaviour
     {
         this.currentTier = (starTier)Mathf.FloorToInt(this.currentStarNum);
         FMODController.instance.setStar(this.currentTier);
+        starSys.SetRating((int)this.currentTier);
     }
 
 
     public void updateScore(float newPoints)
     {
         this.totalScore += newPoints * (int) currentTier;
+        MaxScoreCounter.instance.setScore(totalScore);
     }
 }

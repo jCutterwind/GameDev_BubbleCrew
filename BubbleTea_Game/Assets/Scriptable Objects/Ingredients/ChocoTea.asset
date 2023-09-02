@@ -15,5 +15,5 @@ MonoBehaviour:
   ingredient: Choco Tea
   type: 0
   difficulty: 2
-  icon: {fileID: 21300000, guid: 3baf02552a7429a42bce8a8a946f92c4, type: 3}
+  icon: {fileID: 21300000, guid: f03bc4d4223b9b14ebcc681609d08ac3, type: 3}
   ID: 100000

@@ -15,5 +15,5 @@ MonoBehaviour:
   ingredient: Popping Pearls
   type: 1
   difficulty: 1
-  icon: {fileID: 21300000, guid: 10d2bc34253bded4a922b7e1c4119628, type: 3}
+  icon: {fileID: 21300000, guid: 3576621fd18dc4544bf07ecb97598b3d, type: 3}
   ID: 1000000
