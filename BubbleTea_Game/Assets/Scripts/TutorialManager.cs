@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] private CameraController camera;
+    [SerializeField] private CameraController cameraController;
     [SerializeField] private Canvas[] pannelli;
     private int count = 0;
     private Vector3 currentScale;
     [SerializeField] private float speed=3;
     void Start()
     {
+        
         foreach (Canvas canvas in pannelli)
         {
             canvas.gameObject.SetActive(false);
         }
 
         this.currentScale = this.transform.localScale;
+        this.pannelli[0].gameObject.SetActive(true);
+        cameraController.disableButtons();
 
     }
 
@@ -27,19 +30,26 @@ public class TutorialManager : MonoBehaviour
         switch (count)
         {
             case 0:
-                //camera.ReturnCenter();
+                cameraController.ReturnCenter();
+                cameraController.disableButtons();
+                break;
+            case 2:
+                cameraController.MoveLeft();
+                cameraController.disableButtons();
                 break;
             case 3:
-                //camera.MoveLeft();
-                break;
-            case 4:
-                //camera.MoveRight();
+                cameraController.MoveRight();
+                cameraController.MoveRight();
+                cameraController.disableButtons();
                 break;
             case 5:
-                //camera.ReturnCenter();
+                cameraController.ReturnCenter();
+                cameraController.disableButtons();
+                break;
+            case 6:
                 break;
         }
-
+        
         this.transform.localScale = Vector3.zero;
         count++;
         this.pannelli[count].gameObject.SetActive(true);
@@ -47,16 +57,16 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            this.pannelli[0].gameObject.SetActive(true);
-        }
-
         if (this.transform.localScale != currentScale)
         {
             this.transform.localScale = Vector3.Lerp(this.transform.localScale, this.currentScale, Time.deltaTime*speed);
         }
     }
-
+    public void EndTutorial()
+    {
+        cameraController.enableButtons();
+        this.currentScale = Vector3.zero;
+        this.pannelli[count].gameObject.SetActive(false);
+    }
     
 }

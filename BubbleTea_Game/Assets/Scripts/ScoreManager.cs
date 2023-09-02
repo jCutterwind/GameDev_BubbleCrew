@@ -63,6 +63,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float currentStarNum = 3.3f;
 
     [SerializeField] private float totalScore = 0;
+    public float TotalScore { get => totalScore; }
 
 
     private void Awake()

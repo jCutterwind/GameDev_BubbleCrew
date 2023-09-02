@@ -96,6 +96,17 @@ public class CameraController : MonoBehaviour
     }
 
 
+    public void disableButtons()
+    {
+        leftButton.interactable = false;
+        rightButton.interactable = false;
+    }
+
+    public void enableButtons()
+    {
+        leftButton.interactable = true;
+        rightButton.interactable = true;
+    }
 
 
 }
