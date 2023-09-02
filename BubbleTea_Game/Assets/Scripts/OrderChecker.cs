@@ -23,6 +23,8 @@ public class OrderChecker : MonoBehaviour
     [SerializeField] private float maxTime;
     [SerializeField] private int minMoves;
     [SerializeField] private int maxMoves;
+    [SerializeField] private int orderMalus;
+
     [SerializeField] private int starScoreMultiplier;
     [SerializeField][Range(0.1f, 1.0f)] private float minTolerance;
     [SerializeField][Range(1, 4)] private int maxMult;
@@ -62,7 +64,17 @@ public class OrderChecker : MonoBehaviour
     }
     private void getMoves()
     {
-        minMoves = totOrderScore + (int)(totOrderScore * minTolerance);
+        int diffMult = 1;
+
+        if (currentOrder!=null)
+        {
+            foreach(IngredientQuantityData ing in currentOrder)
+            {
+                diffMult += (int) ing.ingredient.difficulty;
+            }
+        }
+
+        minMoves = totOrderScore + (int)(totOrderScore * minTolerance * diffMult);
         maxMoves = minMoves * maxMult;   
     }
 
@@ -70,6 +82,7 @@ public class OrderChecker : MonoBehaviour
     {
         minTime = minMoves * timePerMove;
         maxTime = maxMoves * timePerMove;
+        this.orderMalus = getTotScore(currentOrder) * minMoves / 2;
     }
 
     public void setInfo(int moves, float timeTook, List<IngredientQuantityData> playerIngs)
@@ -84,9 +97,9 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime;
+        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves;
         float floatScore = totScore / currentScore;
         int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 
@@ -117,30 +130,80 @@ public class OrderChecker : MonoBehaviour
         return result;
     }
 
-    private void checkPlayerOrder()
+    private int getPlayerOrderScore()
     {
         if(playerOrder!=null && currentOrder!=null)
         {
-            List<IngredientQuantityData> oldList = new List<IngredientQuantityData>(playerOrder);
-
-            foreach(IngredientQuantityData ing in oldList)
+            int counter = 0;
+            foreach(IngredientQuantityData ing1 in playerOrder)
             {
-                if(!currentOrder.Contains(ing))
+                foreach(IngredientQuantityData ing2 in currentOrder)
                 {
-                    playerOrder.Remove(ing);
-                    extraTime += 0.35f * getTimeBonus() * ((float) ing.ingredient.difficulty + 1);
+                    if (ing1.ingredient.ingredient == ing2.ingredient.ingredient)
+                    {
+                        int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
+                        counter += newMesure;
+                        Debug.Log(ing1.ingredient.name + " found in currOrder. Counter is " + counter + ", incremented by " + newMesure);
+                    }
+                    else
+                    {
+                        Debug.Log(ing1.ingredient.name + " is EXTRA");
+                        extraTime += 0.35f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
+                    }
+
+
                 }
             }
+            Debug.Log("Counter FULL is " + counter);
+            return counter;
+
+        //    List<IngredientQuantityData> newList = new List<IngredientQuantityData>(playerOrder);
+
+        //    foreach(IngredientQuantityData ing in playerOrder)
+        //    {
+        //        foreach(IngredientQuantityData currIng in currentOrder)
+        //        {
+        //            if(ing.ingredient == currIng.ingredient)
+        //            {
+        //                ing.quantity--;
+        //                if(ing.quantity <= 0)
+        //                {
+        //                    playerOrder
+        //                }
+
+        //            }
+        //        }
+        //        //if(currentOrder.Contains(ing.ingredient))
+        //        //{
+        //        //    Debug.Log("Removed " + ing.ingredient.name + " Because not contained in order as seen by " + !currentOrder.Contains(ing));
+        //        //    playerOrder.Remove(ing);
+        //        //    extraTime += 0.35f * getTimeBonus() * ((float) ing.ingredient.difficulty + 1);
+        //        //}
+        //    }
+
         }
+        return -1;
     }
 
+    private bool containsIngredient(List<IngredientQuantityData> ings, Ingredient ing1)
+    {
+        bool result = false;
+        foreach(IngredientQuantityData ing in ings)
+        {
+            if (ing.ingredient == ing1)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
     public void setCurrentOrder(List<IngredientQuantityData> ings)
     {
         this.currentOrder = ings;
+        Debug.Log("CurrentOrder has " + currentOrder.Count + " ings");
         setTotScore();
         getMoves();
         getTimes();
-        checkPlayerOrder();
     }
 
     private float getTimeBonus()

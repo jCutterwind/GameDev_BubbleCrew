@@ -10,7 +10,7 @@ public enum CamPos
 public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
-    // Start is called before the first frame update
+   
     [SerializeField] private float moveSpeed;
     [SerializeField] Button leftButton, rightButton;
     private Transform targetPos;
@@ -87,7 +87,26 @@ public class CameraController : MonoBehaviour
 
     }
 
+    public void ReturnCenter()
+    {
+        targetPos = centerPos;
+        leftButton.interactable = false;
+        rightButton.interactable = false;
+        camPos = CamPos.CENTER;
+    }
 
+
+    public void disableButtons()
+    {
+        leftButton.interactable = false;
+        rightButton.interactable = false;
+    }
+
+    public void enableButtons()
+    {
+        leftButton.interactable = true;
+        rightButton.interactable = true;
+    }
 
 
 }

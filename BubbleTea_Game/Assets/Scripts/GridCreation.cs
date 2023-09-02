@@ -16,7 +16,6 @@ public class GridCreation : MonoBehaviour
     [SerializeField] private Transform upperLeftCorner;
     private float height, width;
     [SerializeField] private GridManager gridManager;
-    private int count = 1;
     [SerializeField][Range(1.1f, 1.9f)] private float toll;
 
 
@@ -43,15 +42,16 @@ public class GridCreation : MonoBehaviour
 
         Create();
 
+
         //if (miniGameIngredient != null && ingredients != null)
         //{
-        //    Create();
-        //    gridManager.IngredientsList=this.ingredientsList;
+        //    //Create();
+        //    gridManager.IngredientsList = this.ingredientsList;
         //    //gridManager.Ingredients=this.ingredients;
         //}
-        
+
     }
-    
+
     public void setIngredients(Ingredient[] ings )
     {
         this.ingredients = ings;

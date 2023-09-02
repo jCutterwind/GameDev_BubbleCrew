@@ -27,29 +27,32 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float seconds=3;
     [SerializeField] private Transform glassPosition;
 
+    private bool isTimer = false;
+    private float time = 0;
+
     private int mosse = 0;
     
 
 
     void Start()
     {
-        Vector2Int[] vett;
-        this.ingredientQuantity = new List<IngredientQuantityData>();
-        if (ingredientsList != null)
-        {
+        //Vector2Int[] vett;
+        //this.ingredientQuantity = new List<IngredientQuantityData>();
+        //if (ingredientsList != null)
+        //{
 
-            vett=CheckMatch3();
-            while (hasChanged)
-            {
-                GridCreation.Instance.IngredientGenerator(vett[0]);
-                GridCreation.Instance.IngredientGenerator(vett[1]);
-                GridCreation.Instance.IngredientGenerator(vett[2]);
+        //    vett=CheckMatch3();
+        //    while (hasChanged)
+        //    {
+        //        GridCreation.Instance.IngredientGenerator(vett[0]);
+        //        GridCreation.Instance.IngredientGenerator(vett[1]);
+        //        GridCreation.Instance.IngredientGenerator(vett[2]);
 
-                vett=CheckMatch3();
+        //        vett=CheckMatch3();
 
-            }
-        }
-
+        //    }
+        //}
+        Restart();
     }
 
     void Update()
@@ -64,6 +67,7 @@ public class GridManager : MonoBehaviour
             {
                 ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
                 isDragging = true;
+                isTimer = true;
             }
         }
 
@@ -72,12 +76,32 @@ public class GridManager : MonoBehaviour
             BorderCheck();
         }
 
+        if(isTimer)
+        {
+            time += Time.deltaTime; 
+        }
+
     }
 
     public void Restart()
     {
         mosse = 0;
         ingredientQuantity = new List<IngredientQuantityData>();
+        Vector2Int[] vett;
+        if (ingredientsList != null)
+        {
+
+            vett = CheckMatch3();
+            while (hasChanged)
+            {
+                GridCreation.Instance.IngredientGenerator(vett[0]);
+                GridCreation.Instance.IngredientGenerator(vett[1]);
+                GridCreation.Instance.IngredientGenerator(vett[2]);
+
+                vett = CheckMatch3();
+
+            }
+        }
     }
 
     private void BorderCheck()
@@ -238,7 +262,9 @@ public class GridManager : MonoBehaviour
 
     public void SendInfo()
     {
-        OrderChecker.instance.setInfo(this.mosse, 0, ingredientQuantity);
+        OrderChecker.instance.setInfo(this.mosse, (int)time%60, ingredientQuantity);
+        isTimer = false;
+        time = 0;
     }
     
    

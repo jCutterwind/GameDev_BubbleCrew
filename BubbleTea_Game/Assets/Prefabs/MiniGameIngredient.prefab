@@ -130,10 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c254eb745ace344ebf2dbf3e1a8e6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleMult: 0.637
+  scaleMult: 0.501
   gridPosition: {x: 0, y: 0}
   spriteRenderer: {fileID: 8930474951820273720}
-  speed: 10
+  speed: 12
+  offset: 0.01
 --- !u!61 &607129315107062157
 BoxCollider2D:
   m_ObjectHideFlags: 0

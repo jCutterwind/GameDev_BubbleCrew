@@ -22,7 +22,6 @@ public class MenuItem : ScriptableObject
         {
             startDiff = diff.HARD;
         }
-        Debug.Log("ITEM DIFF = " + startDiff);
         return startDiff;
     }
 
