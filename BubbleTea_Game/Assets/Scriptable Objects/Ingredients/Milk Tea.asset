@@ -15,5 +15,5 @@ MonoBehaviour:
   ingredient: Milk Tea
   type: 0
   difficulty: 0
-  icon: {fileID: 21300000, guid: 0804dcd53a3d6eb4f86fdbbb501f3fc2, type: 3}
+  icon: {fileID: 21300000, guid: ff7eecfff22328a468f8467133a82bb6, type: 3}
   ID: 10

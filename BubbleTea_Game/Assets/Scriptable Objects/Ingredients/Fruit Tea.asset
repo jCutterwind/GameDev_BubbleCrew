@@ -15,5 +15,5 @@ MonoBehaviour:
   ingredient: Fruit Tea
   type: 0
   difficulty: 0
-  icon: {fileID: 21300000, guid: 9f2be4c008d5d9a4d92c0e9a75b97a0c, type: 3}
+  icon: {fileID: 21300000, guid: 948aab68a6c42bf4799e3ce8f87787fc, type: 3}
   ID: 1000

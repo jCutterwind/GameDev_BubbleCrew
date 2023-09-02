@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     private int count = 0;
     private Vector3 currentScale;
     [SerializeField] private float speed=3;
+    [SerializeField] private Canvas backgroundCanvas;
     void Start()
     {
         
@@ -67,6 +68,7 @@ public class TutorialManager : MonoBehaviour
         cameraController.enableButtons();
         this.currentScale = Vector3.zero;
         this.pannelli[count].gameObject.SetActive(false);
+        backgroundCanvas.gameObject.SetActive(false);
     }
     
 }

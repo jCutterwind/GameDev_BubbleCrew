@@ -19,6 +19,8 @@ public class OrderChecker : MonoBehaviour
     private int moves;
     private float timeTook;
 
+    [SerializeField] private Timer timer;
+
     [SerializeField] private float minTime;
     [SerializeField] private float maxTime;
     [SerializeField] private int minMoves;
@@ -143,12 +145,13 @@ public class OrderChecker : MonoBehaviour
                     {
                         int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
                         counter += newMesure;
+                        extraTime += 0.35f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
                         Debug.Log(ing1.ingredient.name + " found in currOrder. Counter is " + counter + ", incremented by " + newMesure);
                     }
                     else
                     {
                         Debug.Log(ing1.ingredient.name + " is EXTRA");
-                        extraTime += 0.35f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
+                        extraTime += 0.6f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
                     }
 
 
@@ -209,5 +212,10 @@ public class OrderChecker : MonoBehaviour
     private float getTimeBonus()
     {
         return (GameManager.instance.DiffMultiplier*-1)+1;
+    }
+
+    private void sendExtraTime()
+    {
+        timer.addTime(extraTime);
     }
 }

@@ -80,6 +80,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
+        totalScore = 0;
         oldStarsCounter = new FixedFloatQueue(oldStarMaxNum);
         FMODController.instance.setStar(starTier.ThreeStars);
         updateStars();
@@ -168,5 +169,6 @@ public class ScoreManager : MonoBehaviour
     public void updateScore(float newPoints)
     {
         this.totalScore += newPoints * (int) currentTier;
+        MaxScoreCounter.instance.setScore(totalScore);
     }
 }

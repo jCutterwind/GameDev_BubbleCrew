@@ -18,6 +18,7 @@ public class GridCreation : MonoBehaviour
     [SerializeField] private GridManager gridManager;
     [SerializeField][Range(1.1f, 1.9f)] private float toll;
 
+    [SerializeField] private ChangeGlassColor glass;
 
 
     
@@ -75,6 +76,7 @@ public class GridCreation : MonoBehaviour
 
     public void Restart(Ingredient[] ingredients)
     {
+        glass.changeColor();
         this.ingredients = ingredients;
         for (int i = 0;i < rows; i++)
         {
