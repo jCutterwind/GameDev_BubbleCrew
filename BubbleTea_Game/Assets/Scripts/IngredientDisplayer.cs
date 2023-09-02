@@ -6,11 +6,14 @@ using TMPro;
 
 public class IngredientDisplayer : MonoBehaviour
 {
-    [SerializeField] Image image;
-    [SerializeField] TMP_Text textMeshPro;
+    [SerializeField] private Image image;
+    
+    public Image Image { get=> image;}
+    [SerializeField] private TMP_Text textMeshPro;
 
    public void setIng(Sprite image, string textMeshPro)
     {
+        
         this.image.sprite = image;
         this.textMeshPro.text = textMeshPro;
     }
@@ -19,6 +22,12 @@ public class IngredientDisplayer : MonoBehaviour
     {
         this.image.sprite = ing.ingredient.icon;
         this.textMeshPro.text = "x" + ing.quantity;
+    }
+
+    public void setQuantity(int n)
+    {
+        Debug.Log("aggiornato");
+        this.textMeshPro.text = "x" + n;
     }
 
     public void Clear()
