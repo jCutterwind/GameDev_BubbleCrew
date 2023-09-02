@@ -99,9 +99,9 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves/2;
+        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves/1.2f;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves/2;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves/1.2f;
         float floatScore = totScore / currentScore;
         int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 
@@ -136,17 +136,18 @@ public class OrderChecker : MonoBehaviour
     {
         if(playerOrder!=null && currentOrder!=null)
         {
-            int counter = 0;
+            int counter = getTotScore(currentOrder);
             foreach(IngredientQuantityData ing1 in playerOrder)
             {
                 foreach(IngredientQuantityData ing2 in currentOrder)
                 {
                     if (ing1.ingredient.ingredient == ing2.ingredient.ingredient)
                     {
-                        int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
-                        counter += newMesure;
+                        //int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
+
+                        counter -= ing1.quantity;
                         extraTime += 0.35f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
-                        Debug.Log(ing1.ingredient.name + " found in currOrder. Counter is " + counter + ", incremented by " + newMesure);
+                        //Debug.Log(ing1.ingredient.name + " found in currOrder. Counter is " + counter + ", incremented by " + newMesure);
                     }
                     else
                     {

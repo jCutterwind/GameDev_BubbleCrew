@@ -18,7 +18,7 @@ public class StarSystem : MonoBehaviour
     void Start()
     {
         // Imposta il punteggio iniziale (ad esempio, 3 stelle)
-        SetRating(3);
+        //SetRating(3);
     }
 
     // Imposta il punteggio e chiama l'evento di aggiornamento
