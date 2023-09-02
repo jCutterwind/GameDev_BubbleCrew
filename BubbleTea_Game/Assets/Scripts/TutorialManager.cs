@@ -69,6 +69,7 @@ public class TutorialManager : MonoBehaviour
         this.currentScale = Vector3.zero;
         this.pannelli[count].gameObject.SetActive(false);
         backgroundCanvas.gameObject.SetActive(false);
+        GridManager.instance.setTutorial(false);
     }
     
 }

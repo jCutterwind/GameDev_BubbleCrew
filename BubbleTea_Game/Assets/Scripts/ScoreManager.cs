@@ -154,11 +154,13 @@ public class ScoreManager : MonoBehaviour
 
     public void updateStarsAverage(float newPoints)
     {
+
         this.oldStarsCounter.Enqueue(newPoints);
         this.currentStarNum = this.oldStarsCounter.getAverage();
         updateDiff(newPoints);
         updateStars();
         updateScore(newPoints);
+        starSys.CreateGhost((int)newPoints);
     }   
 
     private void updateStars()

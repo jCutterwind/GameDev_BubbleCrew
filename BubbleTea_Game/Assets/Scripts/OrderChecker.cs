@@ -99,15 +99,15 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves/1.2f;
+        float maxScore = maxMoves * 3 + maxTime;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves/1.2f;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + (1-(getPlayerOrderScore()/totOrderScore)) * maxMoves * 2;
         float floatScore = totScore / currentScore;
         int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 
         //int starScore = ((int)Mathf.Floor((floatScore)));
 
-
+        Debug.Log("Order Correctness Multiplier = " + (1 - (getPlayerOrderScore() / totOrderScore)) * maxMoves * 2);
         Debug.Log("FloatScorw = " + floatScore + ", Current Score = " + currentScore + "StarScore = " + starScore);
 
         extraTime += (starScore + timePerMove) * getTimeBonus();
@@ -125,7 +125,6 @@ public class OrderChecker : MonoBehaviour
 
         foreach(IngredientQuantityData ing in ings)
         {
-            result++;
             result += ing.quantity;
         }
 
@@ -136,7 +135,7 @@ public class OrderChecker : MonoBehaviour
     {
         if(playerOrder!=null && currentOrder!=null)
         {
-            int counter = getTotScore(currentOrder);
+            int counter = 0;
             foreach(IngredientQuantityData ing1 in playerOrder)
             {
                 foreach(IngredientQuantityData ing2 in currentOrder)
@@ -145,13 +144,13 @@ public class OrderChecker : MonoBehaviour
                     {
                         //int newMesure = (int)Mathf.Abs(ing1.quantity - ing2.quantity);
 
-                        counter -= ing1.quantity;
+                        counter += ing1.quantity;
                         extraTime += 0.35f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
                         //Debug.Log(ing1.ingredient.name + " found in currOrder. Counter is " + counter + ", incremented by " + newMesure);
                     }
                     else
                     {
-                        Debug.Log(ing1.ingredient.name + " is EXTRA");
+                        //Debug.Log(ing1.ingredient.name + " is EXTRA");
                         extraTime += getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
                     }
 
@@ -159,7 +158,7 @@ public class OrderChecker : MonoBehaviour
                 }
             }
             sendExtraTime();
-            Debug.Log("Counter FULL is " + counter);
+            Debug.Log("Counter is " + counter + ", and TotScore is " + totOrderScore);
             return counter;
 
         //    List<IngredientQuantityData> newList = new List<IngredientQuantityData>(playerOrder);

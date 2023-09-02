@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager instance;
     private MiniGameIngredient[,] ingredientsList;
     public MiniGameIngredient[,] IngredientsList { set=>  ingredientsList = value; }    
 
@@ -31,8 +32,19 @@ public class GridManager : MonoBehaviour
     private float time = 0;
 
     private int mosse = 0;
-    
 
+    private bool isTutorial = true;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        } else if (instance!=this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -55,31 +67,39 @@ public class GridManager : MonoBehaviour
         Restart();
     }
 
+    public void setTutorial(bool isTutorial)
+    {
+        this.isTutorial = isTutorial;
+    }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(!isTutorial)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
-
-            if (hit.collider != null)
+            if (Input.GetMouseButtonDown(0))
             {
-                ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
-                isDragging = true;
-                isTimer = true;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
+
+                if (hit.collider != null)
+                {
+                    ingr1 = hit.collider.gameObject.GetComponent<MiniGameIngredient>();
+                    isDragging = true;
+                    isTimer = true;
+                }
+            }
+
+            if (isDragging && ingr1 != null && !isChecking)
+            {
+                BorderCheck();
+            }
+
+            if (isTimer)
+            {
+                time += Time.deltaTime;
             }
         }
-
-        if (isDragging && ingr1 != null && !isChecking)
-        {
-            BorderCheck();
-        }
-
-        if(isTimer)
-        {
-            time += Time.deltaTime; 
-        }
+        
 
     }
 
