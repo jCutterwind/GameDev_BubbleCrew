@@ -46,6 +46,15 @@ public class SceneChangeManager : MonoBehaviour
         {
             isLoading = true;
             StartCoroutine(changeSceneCoroutine(i));
+            switch(i)
+            {
+                case 0:
+                    FMODController.instance.setMenu(1);
+                    break;
+                case 1:
+                    FMODController.instance.setMenu(0);
+                    break;
+            }
         }
     }
 

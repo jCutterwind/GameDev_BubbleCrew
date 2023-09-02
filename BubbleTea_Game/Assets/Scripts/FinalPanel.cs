@@ -37,7 +37,7 @@ public class FinalPanel : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         cameraController.ReturnCenter();
-        score.text = "Score: " + ScoreManager.instance.TotalScore;
+        score.text = "Score: " + MaxScoreCounter.instance.Score;
         
         
 

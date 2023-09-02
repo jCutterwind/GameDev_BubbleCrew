@@ -99,9 +99,9 @@ public class OrderChecker : MonoBehaviour
     {
         extraTime = 0;
         float totScore = minMoves + minTime;
-        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves;
+        float maxScore = maxMoves + maxTime + getTotScore(currentOrder)*minMoves/2;
         //float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + Mathf.Clamp(timeTook, minTime, maxTime);
-        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves;
+        float currentScore = Mathf.Clamp(moves, minMoves, maxMoves) + minTime + getPlayerOrderScore()*minMoves/2;
         float floatScore = totScore / currentScore;
         int starScore = (int)Mathf.Clamp(floatScore * 5, 1, 5);
 
@@ -151,12 +151,13 @@ public class OrderChecker : MonoBehaviour
                     else
                     {
                         Debug.Log(ing1.ingredient.name + " is EXTRA");
-                        extraTime += 0.6f * getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
+                        extraTime += getTimeBonus() * ((float)ing1.ingredient.difficulty + 1) * ing1.quantity;
                     }
 
 
                 }
             }
+            sendExtraTime();
             Debug.Log("Counter FULL is " + counter);
             return counter;
 

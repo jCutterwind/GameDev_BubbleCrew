@@ -1210,4 +1210,4 @@ MonoBehaviour:
   numOfEntries: 10
   scoreEntry: {fileID: 3801032399528425463, guid: 49fa2ed405180e844b4cbc31271a11d3, type: 3}
   panel: {fileID: 2134858737}
-  maxScore: 2500
+  maxScore: 800
