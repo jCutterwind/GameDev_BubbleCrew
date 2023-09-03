@@ -24,6 +24,15 @@ public class LoadingScreen : MonoBehaviour
         scalingObject.transform.localScale = Vector3.zero;
         DontDestroyOnLoad(gameObject);
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     private IEnumerator zoomIn()
     {
         isAnim = true;

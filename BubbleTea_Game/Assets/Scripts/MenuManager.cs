@@ -28,6 +28,15 @@ public class MenuManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     public void newMenu()
     {
         clearMenu();

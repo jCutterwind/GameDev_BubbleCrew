@@ -55,6 +55,15 @@ public class GridCreation : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
+
+
     public void setIngredients(Ingredient[] ings )
     {
         this.ingredients = ings;

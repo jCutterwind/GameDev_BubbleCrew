@@ -29,6 +29,15 @@ public class CameraController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     void Start()
     {
         targetPos = centerPos;

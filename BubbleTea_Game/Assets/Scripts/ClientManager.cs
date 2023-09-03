@@ -23,6 +23,15 @@ public class ClientManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     private void Start()
     {
         currentClient = null;

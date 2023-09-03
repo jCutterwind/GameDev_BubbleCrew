@@ -46,6 +46,15 @@ public class OrderChecker : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     private void Start()
     {
         this.scoreManager = ScoreManager.instance;
@@ -58,13 +67,13 @@ public class OrderChecker : MonoBehaviour
         }
     }
 
-    private void setPlayerOrderScore()
-    {
-        if(playerOrder!=null)
-        {
-            playerOrderScore = getTotScore(playerOrder);   
-        }
-    }
+    //private void setPlayerOrderScore()
+    //{
+    //    if(playerOrder!=null)
+    //    {
+    //        playerOrderScore = getTotScore(playerOrder);   
+    //    }
+    //}
     private void getMoves()
     {
         int diffMult = 1;
@@ -115,11 +124,6 @@ public class OrderChecker : MonoBehaviour
 
         extraTime += (starScore + timePerMove) * getTimeBonus();
         scoreManager.updateStarsAverage(starScore);
-    }
-
-    private int orderAccuracyMalus()
-    {
-        return getTotScore(currentOrder) - getTotScore(playerOrder);
     }
 
     private int getTotScore(List<IngredientQuantityData> ings)
@@ -192,18 +196,18 @@ public class OrderChecker : MonoBehaviour
         return -1;
     }
 
-    private bool containsIngredient(List<IngredientQuantityData> ings, Ingredient ing1)
-    {
-        bool result = false;
-        foreach(IngredientQuantityData ing in ings)
-        {
-            if (ing.ingredient == ing1)
-            {
-                result = true;
-            }
-        }
-        return result;
-    }
+    //private bool containsIngredient(List<IngredientQuantityData> ings, Ingredient ing1)
+    //{
+    //    bool result = false;
+    //    foreach(IngredientQuantityData ing in ings)
+    //    {
+    //        if (ing.ingredient == ing1)
+    //        {
+    //            result = true;
+    //        }
+    //    }
+    //    return result;
+    //}
     public void setCurrentOrder(List<IngredientQuantityData> ings)
     {
         this.currentOrder = ings;

@@ -30,6 +30,15 @@ public class FMODController : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     void Start()
     {
         eventInstance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);

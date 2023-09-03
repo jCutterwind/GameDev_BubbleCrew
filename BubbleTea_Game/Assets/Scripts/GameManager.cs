@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
     private diff difficultySetting;
     public diff DifficultySetting { get => difficultySetting; set => difficultySetting = value; }
 
-    [SerializeField] private diff DifficultyDisplay;
-
     [SerializeField] private int orderCounter;
     //public static int OrderCounter { get; set; }
     [SerializeField] private int ordersNumToMenuReset = 5;
@@ -77,17 +75,6 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        DifficultyDisplay = difficultySetting;
-         
-        if(Input.GetKeyDown("space"))
-        {
-            checkMenuReset();
-            NewTurn();
-        }
-    }
-
     private void updateDiffMultiplier()
     {
         diffMultiplier = ((float)difficultySetting + 1 )/ ((float)diff.HARD + 1);
@@ -264,6 +251,14 @@ public class GameManager : MonoBehaviour
             ings[i] = newIng;
         }
         GridCreation.Instance.Restart(ings);
+    }
+
+    private void OnDestroy()
+    {
+        if(instance==this)
+        {
+            instance = null;
+        }
     }
 
 

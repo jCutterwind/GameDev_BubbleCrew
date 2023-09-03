@@ -46,6 +46,15 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
+
     void Start()
     {
         //Vector2Int[] vett;

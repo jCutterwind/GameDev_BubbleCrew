@@ -24,6 +24,15 @@ public class SceneChangeManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         loadScreen.gameObject.SetActive(false);
     }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
     private void Start()
     {
        // FMODController.instance.setMenu(1);

@@ -20,6 +20,14 @@ public class MaxScoreCounter : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
 
     public void setScore(float score)
     {

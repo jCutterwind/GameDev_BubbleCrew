@@ -16,12 +16,6 @@ public class MenuChangeAnimation : MonoBehaviour
         this.transform.localScale = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void startZoomAnim()
     {
         if(!firstTime)

@@ -6,7 +6,7 @@ public class SceneChangeButton : MonoBehaviour
 {
     public void SceneChange(int i)
     {
-        Debug.Log("SCENE CHANGE");
+        //Debug.Log("SCENE CHANGE");
         SceneChangeManager.instance.changeScene(i);
 
     }

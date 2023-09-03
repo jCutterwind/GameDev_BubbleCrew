@@ -36,13 +36,13 @@ public class IngredientCounter : MonoBehaviour
             if (quantities[i].quantity == 0)
             {
                 Color color = displayer[i].Image.color;
-                color.a = 0.5f;
+                color.a = 0.35f;
                 displayer[i].Image.color = color;   
             }
             else
             {
                 Color color = displayer[i].Image.color;
-                color.a = 1f;
+                color.a = 1;
                 displayer[i].Image.color = color;
             }
         }

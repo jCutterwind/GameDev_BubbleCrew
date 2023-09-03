@@ -80,6 +80,15 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
+
+
     private void Start()
     {
         totalScore = 0;
@@ -87,30 +96,6 @@ public class ScoreManager : MonoBehaviour
         FMODController.instance.setStar(starTier.ThreeStars);
         updateStars();
     }   
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            updateStarsAverage(1);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            updateStarsAverage(2);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            updateStarsAverage(3);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            updateStarsAverage(4);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            updateStarsAverage(5);
-        }
-    }
 
     public void updateDiff(float newPoints)
     {
